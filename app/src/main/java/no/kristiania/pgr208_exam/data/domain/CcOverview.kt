@@ -5,27 +5,35 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Image (
-    val id: String,
-    val created_at: String,
-    val updated_at: String,
-    val width: Int,
-    val height: Int,
-    val color: String,
-    val blur_hash: String,
-    val description: String?,
-    val alt_description: String?,
-    val urls: Urls,
-    val likes: Int,
-     val location: ImageLocation?
-    )
+    val data: List<Data>
+)
 
 @JsonClass(generateAdapter = true)
-data class Urls(
+data class Data (
+    val id: String,
+    val rank: String,
+    val symbol: String,
+    val name: String,
+    val supply: String,
+    val maxSupply: String,
+    val marketCapUsd: String,
+    val volumeUsd24Hr: String,
+    val priceUsd: String,
+    val changePercent24Hr: String,
+    val vwap24Hr: String,
+    val explorer: String
+)
+
+/*
+@JsonClass(generateAdapter = true)
+data class test(
         @field:Json(name = "regular") val regular: String
-        /*val full : String,
+        */
+/*val full : String,
         val regular : String,
         val small : String,
-        val thumb : String*/
+        val thumb : String*//*
+
 )
 
 @JsonClass(generateAdapter = true)
@@ -42,5 +50,6 @@ data class ImageLocationPosition(
         val latitude: Double?,
         val longitude: Double?
 )
+*/
 
 
