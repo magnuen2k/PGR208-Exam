@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import no.kristiania.pgr208_exam.MainViewModel
 import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.data.domain.Image
-import no.kristiania.pgr208_exam.databinding.ImageFragmentListBinding
+import no.kristiania.pgr208_exam.databinding.CcFragmentListBinding
 import com.google.android.material.snackbar.Snackbar
 
 class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
 
-    private lateinit var binding: ImageFragmentListBinding
+    private lateinit var binding: CcFragmentListBinding
 
     var images = mutableListOf<Image>()
 
@@ -29,7 +29,7 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = ImageFragmentListBinding.bind(view)
+        binding = CcFragmentListBinding.bind(view)
         adapter = CcOverviewAdapter(images) { image ->
             showImageDetails(image)
         }
