@@ -15,6 +15,6 @@ class CcDetailsFragment(val ccOverview : CcOverview) : Fragment(R.layout.cc_deta
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = CcDetailsFragmentBinding.bind(view)
-        // Glide.with(this).load(ccOverview.urls.regular).into(binding.image)
+        //Glide.with(this).load(ccOverview.urls.regular).into(binding.image)
     }
 }
