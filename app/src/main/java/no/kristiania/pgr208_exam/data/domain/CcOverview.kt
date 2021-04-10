@@ -4,24 +4,24 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Image (
-    val data: List<Data>
+data class CcOverview (
+    val data: List<SpecificCcData>
 )
 
 @JsonClass(generateAdapter = true)
-data class Data (
-    val id: String,
-    val rank: String,
-    val symbol: String,
-    val name: String,
-    val supply: String,
-    val maxSupply: String,
-    val marketCapUsd: String,
-    val volumeUsd24Hr: String,
-    val priceUsd: String,
-    val changePercent24Hr: String,
-    val vwap24Hr: String,
-    val explorer: String
+data class SpecificCcData (
+    val id: String?,
+    val rank: String?,
+    val symbol: String?,
+    val name: String?,
+    val supply: String?,
+    val maxSupply: String?,
+    val marketCapUsd: String?,
+    val volumeUsd24Hr: String?,
+    val priceUsd: String?,
+    val changePercent24Hr: String?,
+    val vwap24Hr: String?,
+    val explorer: String?
 )
 
 /*

@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import no.kristiania.pgr208_exam.databinding.CcOverviewItemBinding
-import no.kristiania.pgr208_exam.data.domain.Image
+import no.kristiania.pgr208_exam.data.domain.CcOverview
+import no.kristiania.pgr208_exam.data.domain.SpecificCcData
 
 
-class CcOverviewAdapter(private val list: List<Image>, val onClick : (Image) -> Unit) : RecyclerView.Adapter<CcOverviewAdapter.ImageViewHolder>() {
+class CcOverviewAdapter(private val list: MutableList<SpecificCcData>, val onClick: (CcOverview) -> Unit) : RecyclerView.Adapter<CcOverviewAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
 
@@ -22,9 +23,10 @@ class CcOverviewAdapter(private val list: List<Image>, val onClick : (Image) -> 
 
     override fun getItemCount(): Int = list.size
 
-    class ImageViewHolder(private val binding: CcOverviewItemBinding, val onClick: (Image) -> Unit) : RecyclerView.ViewHolder(binding.root){
+    class ImageViewHolder(private val binding: CcOverviewItemBinding, val onClick: (CcOverview) -> Unit) : RecyclerView.ViewHolder(binding.root){
 
-         fun bind(image: Image){
+         fun bind(ccOverview: SpecificCcData){
+             binding.comicTitle.text = ccOverview.id
         }
 
     }

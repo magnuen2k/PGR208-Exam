@@ -13,7 +13,7 @@ private val moshi = Moshi.Builder()
 //Making the web-request to the api from the given url
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl("https://api.unsplash.com/")
+    .baseUrl("https://api.coincap.io/v2/")
     .build()
 
 //Lazy init mounting a service using retrofit

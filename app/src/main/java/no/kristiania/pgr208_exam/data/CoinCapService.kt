@@ -1,16 +1,20 @@
 package no.kristiania.pgr208_exam.data
 
-import no.kristiania.pgr208_exam.data.domain.Image
+import no.kristiania.pgr208_exam.data.domain.CcOverview
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CoinCapService {
 
-    @GET("photos")
-    suspend fun getPaginationPage(@Query("page") page: String, @Query("client_id") client_id:  String): List<Image>
+    /*@GET("photos")
+    suspend fun getPaginationPage(@Query("page") page: String, @Query("client_id") client_id:  String): List<CcOverview>
 
     @GET("photos/{id}?client_id=C-ZjCJxgg8vlnSPrYoav8yb-YRZmiaY43RBxVCjd_VU")
-    suspend fun getImage(@Path("id") id: String): Image
+    suspend fun getImage(@Path("id") id: String): CcOverview*/
+
+    @GET("assets")
+    suspend fun getAssetOverview() : CcOverview
+
 
 }
