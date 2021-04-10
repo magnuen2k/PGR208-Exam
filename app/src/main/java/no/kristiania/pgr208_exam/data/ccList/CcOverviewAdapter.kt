@@ -28,7 +28,7 @@ class CcOverviewAdapter(private val list: MutableList<SpecificCcData>, val onCli
     class ImageViewHolder(private val binding: CcOverviewItemBinding, val onClick: (CcOverview) -> Unit) : RecyclerView.ViewHolder(binding.root){
 
          fun bind(ccOverview: SpecificCcData){
-             binding.comicTitle.text = ccOverview.id
+             binding.ccId.text = ccOverview.id
              Glide.with(binding.root.context).load("https://static.coincap.io/assets/icons/" + ccOverview.symbol?.toLowerCase(
                  Locale.ROOT) + "@2x.png").into(binding.imgSmaller)
         }

@@ -14,7 +14,7 @@
         android:layout_height="150dp"/>
 
     <TextView
-        android:id="@+id/comicTitle"
+        android:id="@+id/ccId"
         android:layout_width="374dp"
         android:layout_height="wrap_content"
         android:text="title" />
