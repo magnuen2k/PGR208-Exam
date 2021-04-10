@@ -1,14 +1,13 @@
-package no.kristiania.pgr208_exam.data.imageList
+package no.kristiania.pgr208_exam.data.ccList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import no.kristiania.pgr208_exam.databinding.ImageItemBinding
 import no.kristiania.pgr208_exam.data.domain.Image
 
 
-class ImageListAdapter(private val list: List<Image>, val onClick : (Image) -> Unit) : RecyclerView.Adapter<ImageListAdapter.ImageViewHolder>() {
+class CcOverviewAdapter(private val list: List<Image>, val onClick : (Image) -> Unit) : RecyclerView.Adapter<CcOverviewAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
 

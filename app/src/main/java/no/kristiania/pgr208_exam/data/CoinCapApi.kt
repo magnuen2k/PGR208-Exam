@@ -18,7 +18,7 @@ private val retrofit = Retrofit.Builder()
 
 //Lazy init mounting a service using retrofit
 object API {
-    val UNSPLASH_SERVICE: UnsplashService by lazy {
-        retrofit.create(UnsplashService::class.java)
+    val COIN_CAP_SERVICE: CoinCapService by lazy {
+        retrofit.create(CoinCapService::class.java)
     }
 }

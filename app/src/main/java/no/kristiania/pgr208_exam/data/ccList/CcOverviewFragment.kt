@@ -1,4 +1,4 @@
-package no.kristiania.pgr208_exam.data.imageList
+package no.kristiania.pgr208_exam.data.ccList
 
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +14,7 @@ import no.kristiania.pgr208_exam.data.domain.Image
 import no.kristiania.pgr208_exam.databinding.ImageFragmentListBinding
 import com.google.android.material.snackbar.Snackbar
 
-class ImageListFragment : Fragment(R.layout.image_fragment_list) {
+class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
 
     private lateinit var binding: ImageFragmentListBinding
 
@@ -22,7 +22,7 @@ class ImageListFragment : Fragment(R.layout.image_fragment_list) {
 
     private val viewModel : MainViewModel = MainViewModel()
 
-    private lateinit var adapter: ImageListAdapter
+    private lateinit var adapter: CcOverviewAdapter
 
     private lateinit var layoutManager : GridLayoutManager
 
@@ -30,7 +30,7 @@ class ImageListFragment : Fragment(R.layout.image_fragment_list) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = ImageFragmentListBinding.bind(view)
-        adapter = ImageListAdapter(images) { image ->
+        adapter = CcOverviewAdapter(images) { image ->
             showImageDetails(image)
         }
 
@@ -55,11 +55,12 @@ class ImageListFragment : Fragment(R.layout.image_fragment_list) {
         })
     }
 
+    //
     private fun showImageDetails(image: Image) {
 
         fragmentManager?.apply {
             beginTransaction()
-                .replace(R.id.fragment_container, ImagePostFragment(image))
+                .replace(R.id.fragment_container, CcDetailsFragment(image))
                 .addToBackStack("image_post_fragment").commit()
         }
 

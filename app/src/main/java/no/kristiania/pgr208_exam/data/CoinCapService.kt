@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface UnsplashService {
+interface CoinCapService {
 
     @GET("photos")
     suspend fun getPaginationPage(@Query("page") page: String, @Query("client_id") client_id:  String): List<Image>
