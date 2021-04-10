@@ -31,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -83,4 +87,7 @@ dependencies {
 
     //__Chart library__
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
+    //__old maps dependencie__
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }
