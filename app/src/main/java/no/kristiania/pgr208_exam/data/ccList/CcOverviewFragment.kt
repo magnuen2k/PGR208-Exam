@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import no.kristiania.pgr208_exam.MainViewModel
@@ -20,11 +19,11 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
 
     var images = mutableListOf<Image>()
 
-    private val viewModel : MainViewModel = MainViewModel()
+    private val viewModel: MainViewModel = MainViewModel()
 
     private lateinit var adapter: CcOverviewAdapter
 
-    private lateinit var layoutManager : GridLayoutManager
+    private lateinit var layoutManager: GridLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,28 +33,27 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
             showImageDetails(image)
         }
 
-        viewModel.error.observe(this) {
+        viewModel.error.observe(this, Observer {
             Snackbar.make(
                 binding.root,
                 "Failed to fetch images. Do you have an internet connection?",
                 Snackbar.LENGTH_INDEFINITE
             ).setAction("Retry") { viewModel.reload() }.show()
-        }
+        })
 
         with(binding) {
             layoutManager = GridLayoutManager(requireContext(), 2)
-            comicsList.layoutManager = layoutManager
-            comicsList.adapter = adapter
-            comicsList.addOnScrollListener(scrollListener)
+            ccList.layoutManager = layoutManager
+            ccList.adapter = adapter
+            ccList.addOnScrollListener(scrollListener)
         }
 
         viewModel.currentImage.observe(this, Observer { newImages ->
-                images.addAll(newImages)
-                adapter.notifyDataSetChanged()
+            images.addAll(newImages)
+            adapter.notifyDataSetChanged()
         })
     }
 
-    //
     private fun showImageDetails(image: Image) {
 
         fragmentManager?.apply {
@@ -68,7 +66,8 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
     }
 
 
-    private val scrollListener = object : RecyclerView.OnScrollListener() { // Taken from https://gist.github.com/ssinss/e06f12ef66c51252563e
+    private val scrollListener = object :
+        RecyclerView.OnScrollListener() { // Taken from https://gist.github.com/ssinss/e06f12ef66c51252563e
         // TODO look into refactoring this onScrollListener
         private var loading = true
         private val visibleThreshold = 5
@@ -93,7 +92,8 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
                 }
             }
             if (!loading && (totalAmountOfItems - amountOfVisibleItems)
-                <= (firstVisibleItem + visibleThreshold)) {
+                <= (firstVisibleItem + visibleThreshold)
+            ) {
                 // End has been reached
 
                 // Do something
@@ -101,7 +101,6 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
 
                 loading = true;
             }
-
 
 
         }

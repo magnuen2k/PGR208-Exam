@@ -8,7 +8,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/comics_list"
+        android:id="@+id/cc_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/cc_overview_item" />
