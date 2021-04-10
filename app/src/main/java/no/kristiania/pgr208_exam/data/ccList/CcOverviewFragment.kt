@@ -43,7 +43,7 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
         })
 
         with(binding) {
-            layoutManager = GridLayoutManager(requireContext(), 2)
+            layoutManager = GridLayoutManager(requireContext(), 1)
             ccList.layoutManager = layoutManager
             ccList.adapter = adapter
             ccList.addOnScrollListener(scrollListener)
