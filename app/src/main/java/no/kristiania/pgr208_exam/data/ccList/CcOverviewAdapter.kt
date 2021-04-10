@@ -1,18 +1,17 @@
-package no.kristiania.pgr208_exam.data.imageList
+package no.kristiania.pgr208_exam.data.ccList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import no.kristiania.pgr208_exam.databinding.ImageItemBinding
+import no.kristiania.pgr208_exam.databinding.CcOverviewItemBinding
 import no.kristiania.pgr208_exam.data.domain.Image
 
 
-class ImageListAdapter(private val list: List<Image>, val onClick : (Image) -> Unit) : RecyclerView.Adapter<ImageListAdapter.ImageViewHolder>() {
+class CcOverviewAdapter(private val list: List<Image>, val onClick : (Image) -> Unit) : RecyclerView.Adapter<CcOverviewAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
 
-        val holder = ImageItemBinding.inflate(LayoutInflater.from(parent.context))
+        val holder = CcOverviewItemBinding.inflate(LayoutInflater.from(parent.context))
         return ImageViewHolder(holder, onClick)
     }
 
@@ -23,7 +22,7 @@ class ImageListAdapter(private val list: List<Image>, val onClick : (Image) -> U
 
     override fun getItemCount(): Int = list.size
 
-    class ImageViewHolder(private val binding: ImageItemBinding, val onClick: (Image) -> Unit) : RecyclerView.ViewHolder(binding.root){
+    class ImageViewHolder(private val binding: CcOverviewItemBinding, val onClick: (Image) -> Unit) : RecyclerView.ViewHolder(binding.root){
 
          fun bind(image: Image){
         }

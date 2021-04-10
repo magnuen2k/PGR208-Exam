@@ -1,57 +1,56 @@
-package no.kristiania.pgr208_exam.data.imageList
+package no.kristiania.pgr208_exam.data.ccList
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import no.kristiania.pgr208_exam.MainViewModel
 import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.data.domain.Image
-import no.kristiania.pgr208_exam.databinding.ImageFragmentListBinding
+import no.kristiania.pgr208_exam.databinding.CcFragmentListBinding
 import com.google.android.material.snackbar.Snackbar
 
-class ImageListFragment : Fragment(R.layout.image_fragment_list) {
+class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
 
-    private lateinit var binding: ImageFragmentListBinding
+    private lateinit var binding: CcFragmentListBinding
 
     var images = mutableListOf<Image>()
 
-    private val viewModel : MainViewModel = MainViewModel()
+    private val viewModel: MainViewModel = MainViewModel()
 
-    private lateinit var adapter: ImageListAdapter
+    private lateinit var adapter: CcOverviewAdapter
 
-    private lateinit var layoutManager : GridLayoutManager
+    private lateinit var layoutManager: GridLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = ImageFragmentListBinding.bind(view)
-        adapter = ImageListAdapter(images) { image ->
+        binding = CcFragmentListBinding.bind(view)
+        adapter = CcOverviewAdapter(images) { image ->
             showImageDetails(image)
         }
 
-        viewModel.error.observe(this) {
+        viewModel.error.observe(this, Observer {
             Snackbar.make(
                 binding.root,
                 "Failed to fetch images. Do you have an internet connection?",
                 Snackbar.LENGTH_INDEFINITE
             ).setAction("Retry") { viewModel.reload() }.show()
-        }
+        })
 
         with(binding) {
             layoutManager = GridLayoutManager(requireContext(), 2)
-            comicsList.layoutManager = layoutManager
-            comicsList.adapter = adapter
-            comicsList.addOnScrollListener(scrollListener)
+            ccList.layoutManager = layoutManager
+            ccList.adapter = adapter
+            ccList.addOnScrollListener(scrollListener)
         }
 
         viewModel.currentImage.observe(this, Observer { newImages ->
-                images.addAll(newImages)
-                adapter.notifyDataSetChanged()
+            images.addAll(newImages)
+            adapter.notifyDataSetChanged()
         })
     }
 
@@ -59,7 +58,7 @@ class ImageListFragment : Fragment(R.layout.image_fragment_list) {
 
         fragmentManager?.apply {
             beginTransaction()
-                .replace(R.id.fragment_container, ImagePostFragment(image))
+                .replace(R.id.fragment_container, CcDetailsFragment(image))
                 .addToBackStack("image_post_fragment").commit()
         }
 
@@ -67,7 +66,8 @@ class ImageListFragment : Fragment(R.layout.image_fragment_list) {
     }
 
 
-    private val scrollListener = object : RecyclerView.OnScrollListener() { // Taken from https://gist.github.com/ssinss/e06f12ef66c51252563e
+    private val scrollListener = object :
+        RecyclerView.OnScrollListener() { // Taken from https://gist.github.com/ssinss/e06f12ef66c51252563e
         // TODO look into refactoring this onScrollListener
         private var loading = true
         private val visibleThreshold = 5
@@ -92,7 +92,8 @@ class ImageListFragment : Fragment(R.layout.image_fragment_list) {
                 }
             }
             if (!loading && (totalAmountOfItems - amountOfVisibleItems)
-                <= (firstVisibleItem + visibleThreshold)) {
+                <= (firstVisibleItem + visibleThreshold)
+            ) {
                 // End has been reached
 
                 // Do something
@@ -100,7 +101,6 @@ class ImageListFragment : Fragment(R.layout.image_fragment_list) {
 
                 loading = true;
             }
-
 
 
         }

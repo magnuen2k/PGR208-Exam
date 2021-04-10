@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="data.imageList.ImageListFragment">
+    tools:context="data.ccList.CcOverviewFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/comics_list"
+        android:id="@+id/cc_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/image_item" />
+        tools:listitem="@layout/cc_overview_item" />
 
 </FrameLayout>
