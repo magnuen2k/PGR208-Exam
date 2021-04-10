@@ -1,6 +1,8 @@
 package no.kristiania.pgr208_exam.data
 
 import no.kristiania.pgr208_exam.data.domain.CcOverview
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -16,5 +18,8 @@ interface CoinCapService {
     @GET("assets")
     suspend fun getAssetOverview() : CcOverview
 
+
+    @GET
+    suspend fun getSpecific(url: String) : Call<ResponseBody>
 
 }
