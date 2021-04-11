@@ -36,7 +36,7 @@ class CcOverviewAdapter(private val list: MutableList<SpecificCcData>, val onCli
     class ImageViewHolder(private val binding: CcOverviewItemBinding, val onClick: (CcOverview) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(ccOverview: SpecificCcData) {
 
-            binding.ccId.text = ccOverview.id
+            binding.ccId.text = ccOverview.id?.capitalize()
             binding.symbol.text = ccOverview.symbol
             binding.currencyUsd.text = "$${formatDecimal(ccOverview.priceUsd)}"
             binding.changePercent.text = "${formatPercent(ccOverview.changePercent24Hr, binding.changePercent)}%"
