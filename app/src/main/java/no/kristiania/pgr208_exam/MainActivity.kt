@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         if(launch == null) {
             Log.d("MAIN_ACTIVITY", "FIRST LAUNCH")
+            sharedPreferences.edit().apply() {
+                putString("launch", "exist")
+            }
         } else {
             Log.d("MAIN_ACTIVITY", "NOT FIRST LAUNCH")
         }
