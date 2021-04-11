@@ -46,7 +46,6 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
             layoutManager = GridLayoutManager(requireContext(), 1)
             ccList.layoutManager = layoutManager
             ccList.adapter = adapter
-            ccList.addOnScrollListener(scrollListener)
         }
 
         viewModel.allCcAssets.observe(this, Observer { newCcData ->
@@ -64,46 +63,5 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
         }
 
         Log.d("INFO", "Image clicked")
-    }
-
-
-    private val scrollListener = object :
-        RecyclerView.OnScrollListener() { // Taken from https://gist.github.com/ssinss/e06f12ef66c51252563e
-        // TODO look into refactoring this onScrollListener
-        private var loading = true
-        private val visibleThreshold = 5
-        private var previousItemTotal = 0
-
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-        }
-
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-
-            val amountOfVisibleItems = recyclerView.childCount
-            val totalAmountOfItems = layoutManager.itemCount
-            val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
-
-
-            if (loading) {
-                if (totalAmountOfItems > previousItemTotal) {
-                    loading = false;
-                    previousItemTotal = totalAmountOfItems;
-                }
-            }
-            if (!loading && (totalAmountOfItems - amountOfVisibleItems)
-                <= (firstVisibleItem + visibleThreshold)
-            ) {
-                // End has been reached
-
-                // Do something
-                viewModel.getAssetOverview()
-
-                loading = true;
-            }
-
-
-        }
     }
 }
