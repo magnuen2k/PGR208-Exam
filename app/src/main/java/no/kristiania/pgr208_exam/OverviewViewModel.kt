@@ -10,15 +10,10 @@ import no.kristiania.pgr208_exam.data.CoinCapService
 import no.kristiania.pgr208_exam.data.domain.CcOverview
 import kotlinx.coroutines.*
 
-class MainViewModel : ViewModel(){
-
-    // private val API_KEY = "C-ZjCJxgg8vlnSPrYoav8yb-YRZmiaY43RBxVCjd_VU"
+class OverviewViewModel : ViewModel(){
 
     private val coinCapService: CoinCapService = API.COIN_CAP_SERVICE
 
-    // private var pageNumber = 0;
-
-    //Modified to take list
     private val _allCcAssets = MutableLiveData<CcOverview>()
     val allCcAssets: LiveData<CcOverview> get() = _allCcAssets
 
@@ -29,25 +24,6 @@ class MainViewModel : ViewModel(){
         _error.postValue(Unit)
         Log.d("INFO", e.message!!)
     }
-
-    init {
-        // getPaginationPage()
-        getAssetOverview()
-    }
-
-    fun reload() {
-        // getPaginationPage()
-        getAssetOverview()
-    }
-
-    /*fun getPaginationPage() {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            delay(5000)
-            pageNumber++
-            val paginationImages = coinCapService.getPaginationPage(pageNumber.toString(), client_id = API_KEY)
-            _allCcAssets.postValue(paginationImages)
-        }
-    }*/
 
     fun getAssetOverview() {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {

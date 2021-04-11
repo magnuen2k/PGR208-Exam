@@ -6,8 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import no.kristiania.pgr208_exam.MainViewModel
+import no.kristiania.pgr208_exam.OverviewViewModel
 import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.data.domain.CcOverview
 import no.kristiania.pgr208_exam.databinding.CcFragmentListBinding
@@ -20,41 +19,50 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
 
     var ccOverviews = mutableListOf<SpecificCcData>()
 
-    private val viewModel: MainViewModel = MainViewModel()
+    private val viewModel: OverviewViewModel = OverviewViewModel()
 
     private lateinit var adapter: CcOverviewAdapter
-
-    private lateinit var layoutManager: GridLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = CcFragmentListBinding.bind(view)
-        adapter = CcOverviewAdapter(ccOverviews) { image ->
-            showImageDetails(image)
+        adapter = CcOverviewAdapter(ccOverviews) { item ->
+            showDetails(item)
         }
 
-        viewModel.error.observe(this, Observer {
-            Snackbar.make(
-                binding.root,
-                "Failed to fetch images. Do you have an internet connection?",
-                Snackbar.LENGTH_INDEFINITE
-            ).setAction("Retry") { viewModel.reload() }.show()
-        })
+        mountObservers()
 
         with(binding) {
-            layoutManager = GridLayoutManager(requireContext(), 1)
-            ccList.layoutManager = layoutManager
+            ccList.layoutManager = GridLayoutManager(requireContext(), 1)
             ccList.adapter = adapter
         }
 
+    }
+
+    private fun mountObservers() {
+        viewModel.error.observe(this, Observer {
+            Snackbar.make(
+                    binding.root,
+                    "Failed to fetch images. Do you have an internet connection?",
+                    Snackbar.LENGTH_INDEFINITE
+            ).setAction("Retry") { viewModel.getAssetOverview()}.show()
+        })
+
+
         viewModel.allCcAssets.observe(this, Observer { newCcData ->
+            ccOverviews.clear()
             ccOverviews.addAll(newCcData.data)
             adapter.notifyDataSetChanged()
         })
     }
 
-    private fun showImageDetails(ccOverview: CcOverview) {
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAssetOverview()
+    }
+
+    private fun showDetails(ccOverview: CcOverview) {
 
         fragmentManager?.apply {
             beginTransaction()
