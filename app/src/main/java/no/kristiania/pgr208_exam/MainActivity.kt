@@ -6,8 +6,13 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import no.kristiania.pgr208_exam.data.ccList.CcOverviewFragment
 import no.kristiania.pgr208_exam.databinding.ActivityMainBinding
+import no.kristiania.pgr208_exam.db.DataBase
+import no.kristiania.pgr208_exam.entities.UserPortfolio
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,12 +31,16 @@ class MainActivity : AppCompatActivity() {
         val launch: String? = sharedPreferences.getString("launch", null)
 
         if(launch == null) {
-            Log.d("MAIN_ACTIVITY", "FIRST LAUNCH")
-            sharedPreferences.edit().apply() {
-                putString("launch", "exist")
+            sharedPreferences.edit().putString("launch", "exist").apply()
+            lifecycleScope.launch {
+                DataBase.getDatabase(baseContext).getUserPortfolioDAO().insert(UserPortfolio("USD", "10000"))
             }
         } else {
-            Log.d("MAIN_ACTIVITY", "NOT FIRST LAUNCH")
+            lifecycleScope.launch(Dispatchers.IO) {
+                DataBase.getDatabase(baseContext).getUserPortfolioDAO().fetchAll().forEach {
+                    binding.points.text = it.volume
+                }
+            }
         }
     }
 }

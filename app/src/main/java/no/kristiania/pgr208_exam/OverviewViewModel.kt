@@ -30,10 +30,6 @@ class OverviewViewModel : ViewModel(){
             delay(5000)
             val ccOverviewItems = coinCapService.getAssetOverview()
             _allCcAssets.postValue(ccOverviewItems);
-
-            val ccSymbol = ccOverviewItems.data
-            Log.d("NOEHELTRART", ccSymbol.toString())
-
         }
     }
 }
