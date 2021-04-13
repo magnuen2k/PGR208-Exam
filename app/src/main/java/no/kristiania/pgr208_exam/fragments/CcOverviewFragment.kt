@@ -1,5 +1,6 @@
 package no.kristiania.pgr208_exam.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,8 +12,11 @@ import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.data.domain.CcOverview
 import no.kristiania.pgr208_exam.databinding.CcFragmentListBinding
 import com.google.android.material.snackbar.Snackbar
+import no.kristiania.pgr208_exam.activities.TransactionActivity
 import no.kristiania.pgr208_exam.adapters.CcOverviewAdapter
 import no.kristiania.pgr208_exam.data.domain.SpecificCcData
+import java.text.DecimalFormat
+import java.util.*
 
 
 class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
@@ -30,7 +34,7 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
 
         binding = CcFragmentListBinding.bind(view)
         adapter = CcOverviewAdapter(ccOverviews) { item ->
-            showDetails(item)
+            openTransactionActivity(item)
         }
 
         mountObservers()
@@ -63,14 +67,22 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
         viewModel.getAssetOverview()
     }
 
-    private fun showDetails(ccOverview: CcOverview) {
-
-        fragmentManager?.apply {
-            beginTransaction()
-                .replace(R.id.fragment_container, CcDetailsFragment(ccOverview))
-                .addToBackStack("image_post_fragment").commit()
+    private fun openTransactionActivity(ccOverview: SpecificCcData) {
+        Intent(requireContext(), TransactionActivity::class.java).apply {
+            putExtra("currency", ccOverview.id?.capitalize())
+            val imageUrl = "https://static.coincap.io/assets/icons/" + ccOverview.symbol?.toLowerCase(
+                Locale.ROOT) + "@2x.png"
+            putExtra("currencySymbol", imageUrl)
+            putExtra("recentRate", "$${formatDecimal(ccOverview.priceUsd)}")
+            startActivity(this)
         }
+    }
 
-        Log.d("INFO", "Image clicked")
+    private fun formatDecimal(decimal: String?): String {
+        val priceUsd = decimal?.toBigDecimal()
+        val format = DecimalFormat("#,###.00")
+        format.isParseBigDecimal = true
+        format.minimumIntegerDigits = 1
+        return format.format(priceUsd)
     }
 }
