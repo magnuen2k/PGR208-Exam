@@ -13,6 +13,8 @@ import no.kristiania.pgr208_exam.databinding.CcFragmentListBinding
 import com.google.android.material.snackbar.Snackbar
 import no.kristiania.pgr208_exam.data.domain.SpecificCcData
 
+
+
 class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
 
     private lateinit var binding: CcFragmentListBinding
@@ -37,7 +39,6 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
             ccList.layoutManager = GridLayoutManager(requireContext(), 1)
             ccList.adapter = adapter
         }
-
     }
 
     private fun mountObservers() {
