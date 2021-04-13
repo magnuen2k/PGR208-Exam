@@ -5,14 +5,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import no.kristiania.pgr208_exam.data.ccList.CcOverviewFragment
+import no.kristiania.pgr208_exam.fragments.CcOverviewFragment
 import no.kristiania.pgr208_exam.databinding.ActivityMainBinding
-import no.kristiania.pgr208_exam.db.DataBase
-import no.kristiania.pgr208_exam.entities.UserPortfolio
+import no.kristiania.pgr208_exam.datastorage.db.DataBase
+import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +32,12 @@ class MainActivity : AppCompatActivity() {
         if(launch == null) {
             sharedPreferences.edit().putString("launch", "exist").apply()
             lifecycleScope.launch {
-                DataBase.getDatabase(baseContext).getUserPortfolioDAO().insert(UserPortfolio("USD", "10000"))
+                DataBase.getDatabase(baseContext).getUserPortfolioDAO().insert(
+                    UserPortfolio(
+                        "USD",
+                        "10000"
+                    )
+                )
             }
         } else {
             lifecycleScope.launch(Dispatchers.IO) {

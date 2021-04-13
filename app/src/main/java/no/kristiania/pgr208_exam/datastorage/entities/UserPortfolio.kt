@@ -1,4 +1,4 @@
-package no.kristiania.pgr208_exam.entities
+package no.kristiania.pgr208_exam.datastorage.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

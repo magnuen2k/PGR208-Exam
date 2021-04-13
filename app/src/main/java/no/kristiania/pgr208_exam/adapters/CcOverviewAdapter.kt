@@ -1,4 +1,4 @@
-package no.kristiania.pgr208_exam.data.ccList
+package no.kristiania.pgr208_exam.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView

@@ -1,4 +1,4 @@
-package no.kristiania.pgr208_exam.data.ccList
+package no.kristiania.pgr208_exam.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -6,13 +6,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import no.kristiania.pgr208_exam.OverviewViewModel
+import no.kristiania.pgr208_exam.viewmodels.OverviewViewModel
 import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.data.domain.CcOverview
 import no.kristiania.pgr208_exam.databinding.CcFragmentListBinding
 import com.google.android.material.snackbar.Snackbar
+import no.kristiania.pgr208_exam.adapters.CcOverviewAdapter
 import no.kristiania.pgr208_exam.data.domain.SpecificCcData
-
 
 
 class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {

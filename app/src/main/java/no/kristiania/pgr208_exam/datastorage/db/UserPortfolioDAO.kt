@@ -1,9 +1,9 @@
-package no.kristiania.pgr208_exam.db
+package no.kristiania.pgr208_exam.datastorage.db
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import no.kristiania.pgr208_exam.entities.UserPortfolio
+import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
 
 @Dao
 interface UserPortfolioDAO {

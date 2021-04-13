@@ -1,4 +1,4 @@
-package no.kristiania.pgr208_exam
+package no.kristiania.pgr208_exam.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
