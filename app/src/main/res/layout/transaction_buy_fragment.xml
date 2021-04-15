@@ -21,7 +21,7 @@
             android:layout_marginTop="32dp"
             android:text="CCNAME" />
 
-        <Button
+        <EditText
             android:id="@+id/ccBuyAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:layout_marginTop="32dp"
             android:text="USD" />
 
-        <Button
+        <EditText
             android:id="@+id/usdBuylAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
