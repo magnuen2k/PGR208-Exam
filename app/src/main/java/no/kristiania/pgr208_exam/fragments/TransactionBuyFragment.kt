@@ -12,5 +12,6 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
     override fun onCreateView(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
+        override fun onViewCreated(view: View){
     */
 }
