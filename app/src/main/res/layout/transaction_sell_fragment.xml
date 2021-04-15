@@ -19,7 +19,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:text="CCNAME"
-            style="@style/text_label"/>
+            style="@style/text_label"
+            />
 
         <EditText
             android:id="@+id/ccSellAmount"
@@ -28,7 +29,8 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:hint="Amount to sell"
-            style="@style/style_edit_text"/>
+            style="@style/style_edit_text"
+            android:background="@drawable/my_border" />
 
     </LinearLayout>
 
@@ -56,7 +58,8 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:hint="Value in USD"
-            style="@style/style_edit_text"/>
+            style="@style/style_edit_text"
+            android:background="@drawable/my_border" />
 
     </LinearLayout>
 
@@ -67,7 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="sell" />
+        android:text="sell"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,7 +79,8 @@
         android:layout_weight="1"
         android:gravity="center|bottom"
         android:orientation="vertical"
-        android:paddingBottom="24dp">
+        android:paddingBottom="24dp"
+        >
 
 
         <TextView
