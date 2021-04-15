@@ -71,4 +71,34 @@
         android:layout_marginTop="32dp"
         android:text="sell" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
+
+
+        <TextView
+            android:id="@+id/infoText"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+
+            android:text="You can only sell cryptocurrency in USD" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textSize="25px"
+
+
+            android:paddingTop="4dp"
+
+            android:text="You have x.xxxx BTC"/>
+
+
+
+    </LinearLayout>
+
 </LinearLayout>
