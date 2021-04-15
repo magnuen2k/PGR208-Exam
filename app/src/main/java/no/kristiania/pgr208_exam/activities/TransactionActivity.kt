@@ -21,6 +21,7 @@ class TransactionActivity : AppCompatActivity() {
     private lateinit var currencySymbol : String
     private lateinit var currency : String
     private lateinit var recentRate : String
+    private lateinit var symbol : String
 
     private val _userPortfolio = MutableLiveData<UserPortfolio>()
     val userPortfolio: LiveData<UserPortfolio> get() = _userPortfolio
@@ -40,7 +41,8 @@ class TransactionActivity : AppCompatActivity() {
             currencySymbol = extras.getString("currencySymbol", "")
             currency = extras.getString("currency", "")
             recentRate =  extras.getString("recentRate", "")
-            getPortfolio(currencySymbol)
+            symbol =  extras.getString("symbol", "")
+            getPortfolio(symbol)
             binding.currency.text = currency
             binding.recentRate.text = recentRate
             Glide.with(this).load(currencySymbol).into(binding.currencySymbol)
