@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:text="CCNAME" />
+            android:text="CCNAME"
+            style="@style/text_label"/>
 
         <EditText
             android:id="@+id/ccSellAmount"
@@ -27,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:text="AmountOfCrypto" />
+            android:hint="Amount to sell"
+            style="@style/style_edit_text"/>
 
     </LinearLayout>
 
@@ -45,7 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:text="USD" />
+            android:text="USD"
+            style="@style/text_label"/>
 
         <EditText
             android:id="@+id/usdSellAmount"
@@ -53,7 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:text="AmountOfUSD" />
+            android:hint="Value in USD"
+            style="@style/style_edit_text"/>
 
     </LinearLayout>
 
