@@ -14,4 +14,7 @@ interface UserPortfolioDAO {
      @Query("SELECT * FROM user_portfolio")
      suspend fun fetchAll(): List<UserPortfolio>
 
+     @Query("SELECT * FROM user_portfolio WHERE symbol =:symbol")
+     suspend fun fetch(symbol : String) : UserPortfolio
+
 }
