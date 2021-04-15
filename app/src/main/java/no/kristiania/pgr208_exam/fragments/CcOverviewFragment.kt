@@ -74,6 +74,7 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
                 Locale.ROOT) + "@2x.png"
             putExtra("currencySymbol", imageUrl)
             putExtra("recentRate", "$${formatDecimal(ccOverview.priceUsd)}")
+            putExtra("symbol", ccOverview.symbol)
             startActivity(this)
         }
     }

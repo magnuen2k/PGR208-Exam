@@ -38,6 +38,12 @@ class MainActivity : AppCompatActivity() {
                         "10000"
                     )
                 )
+                DataBase.getDatabase(baseContext).getUserPortfolioDAO().insert(
+                    UserPortfolio(
+                            "BTC",
+                            "12"
+                    )
+                )
             }
         } else {
             lifecycleScope.launch(Dispatchers.IO) {
