@@ -3,18 +3,13 @@ package no.kristiania.pgr208_exam.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import no.kristiania.pgr208_exam.R
-import no.kristiania.pgr208_exam.data.domain.CcOverview
 import no.kristiania.pgr208_exam.databinding.ActivityTransactionBinding
-import no.kristiania.pgr208_exam.datastorage.db.DataBase
-import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
 import no.kristiania.pgr208_exam.fragments.TransactionOptionFragment
+import no.kristiania.pgr208_exam.viewmodels.TransactionViewModel
 
 class TransactionActivity : AppCompatActivity() {
 
@@ -23,13 +18,14 @@ class TransactionActivity : AppCompatActivity() {
     private lateinit var recentRate : String
     private lateinit var symbol : String
 
-    private val _userPortfolio = MutableLiveData<UserPortfolio>()
-    val userPortfolio: LiveData<UserPortfolio> get() = _userPortfolio
+    private lateinit var viewModel: TransactionViewModel
 
     private lateinit var binding: ActivityTransactionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
 
         binding = ActivityTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -42,19 +38,13 @@ class TransactionActivity : AppCompatActivity() {
             currency = extras.getString("currency", "")
             recentRate =  extras.getString("recentRate", "")
             symbol =  extras.getString("symbol", "")
-            getPortfolio(symbol)
+            viewModel.userPortfolio.observe(this, Observer {userPortfolio ->
+                Log.d("INFO", "Symbol:${userPortfolio.symbol} Volume: ${userPortfolio.volume} ")
+            })
+            viewModel.getPortfolio(symbol)
             binding.currency.text = currency
             binding.recentRate.text = recentRate
             Glide.with(this).load(currencySymbol).into(binding.currencySymbol)
         }
     }
-
-    private fun getPortfolio(symbol: String) {
-        lifecycleScope.launch {
-            val portfolio = DataBase.getDatabase(baseContext).getUserPortfolioDAO().fetch(symbol)
-            Log.d("INFO", "Symbol: ${portfolio.symbol} Volume: ${portfolio.volume} ")
-            _userPortfolio.postValue(portfolio)
-        }
-    }
-
 }
