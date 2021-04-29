@@ -20,7 +20,7 @@ interface CoinCapService {
     suspend fun getAssetOverview() : CcOverview
 
 
-    @GET("assets/bitcoin/history?interval=h1")
-    suspend fun getInterval() : CcHistory
+    @GET("assets/{id}/history?interval=h1")
+    suspend fun getInterval(@Path("id") id: String) : CcHistory
 
 }

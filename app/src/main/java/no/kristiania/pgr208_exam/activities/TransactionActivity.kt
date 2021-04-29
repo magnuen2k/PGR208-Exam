@@ -15,6 +15,8 @@ import no.kristiania.pgr208_exam.data.domain.SpecificCcHistory
 import no.kristiania.pgr208_exam.databinding.ActivityTransactionBinding
 import no.kristiania.pgr208_exam.fragments.TransactionOptionFragment
 import no.kristiania.pgr208_exam.viewmodels.TransactionViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TransactionActivity : AppCompatActivity() {
 
@@ -57,7 +59,7 @@ class TransactionActivity : AppCompatActivity() {
 
             // GRAPH
 
-            viewModel.getInterval()
+            viewModel.getInterval(currency.toLowerCase(Locale.ROOT))
             viewModel.ccHistory.observe(this, Observer {history ->
                 Log.d("INFO", "Price usd: ${history.data[0].priceUsd}")
                 ccIntervals.clear()

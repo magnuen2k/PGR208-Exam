@@ -17,36 +17,10 @@ import no.kristiania.pgr208_exam.viewmodels.TransactionViewModel
 
 class TransactionGraphFragment : Fragment(R.layout.transaction_graph_fragment) {
 
-    private lateinit var viewModel: TransactionViewModel
-
-    private lateinit var binding : TransactionGraphFragmentBinding
-
-    var ccIntervals = mutableListOf<SpecificCcHistory>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
-
-        // GRAPH
-
-        viewModel.getInterval()
-        viewModel.ccHistory.observe(this, Observer {history ->
-            Log.d("INFO", "Price usd: ${history.data[0].priceUsd}")
-            ccIntervals.addAll(history.data);
-        })
-
-        var series: ArrayList<DataEntry> = ArrayList();
-
-        for (ccInterval in ccIntervals) {
-            series.add(ValueDataEntry(ccInterval.time, ccInterval.priceUsd?.toFloat()))
-        }
-
-        val cartesian: Cartesian = AnyChart.column()
-
-        binding.chartView.setChart(cartesian)
-
-        // STOP GRAPH
 
     }
 }

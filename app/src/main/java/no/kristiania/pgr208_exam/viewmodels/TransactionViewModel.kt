@@ -43,9 +43,9 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    fun getInterval() {
+    fun getInterval(id: String) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            val ccOverviewItems = coinCapService.getInterval()
+            val ccOverviewItems = coinCapService.getInterval(id)
             _CcHistory.postValue(ccOverviewItems)
         }
     }
