@@ -73,7 +73,7 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
             val imageUrl = "https://static.coincap.io/assets/icons/" + ccOverview.symbol?.toLowerCase(
                 Locale.ROOT) + "@2x.png"
             putExtra("currencySymbol", imageUrl)
-            putExtra("recentRate", "$${formatDecimal(ccOverview.priceUsd)}")
+            putExtra("recentRate", "${formatDecimal(ccOverview.priceUsd)}")
             putExtra("symbol", ccOverview.symbol)
             startActivity(this)
         }

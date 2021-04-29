@@ -53,7 +53,7 @@ class TransactionActivity : AppCompatActivity() {
             })
             viewModel.getPortfolio(symbol)
             binding.currency.text = currency
-            binding.recentRate.text = recentRate
+            binding.recentRate.text = "$${recentRate}"
             Glide.with(this).load(currencySymbol).into(binding.currencySymbol)
 
 
