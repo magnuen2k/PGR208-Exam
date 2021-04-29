@@ -27,8 +27,6 @@ class TransactionActivity : AppCompatActivity() {
 
     private lateinit var viewModel: TransactionViewModel
 
-    var ccIntervals = mutableListOf<SpecificCcHistory>()
-
     private lateinit var binding: ActivityTransactionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +36,6 @@ class TransactionActivity : AppCompatActivity() {
 
         binding = ActivityTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction().add(R.id.transactionFragmentContainer, TransactionOptionFragment(), "TransactionOptionFragment").commit()
-        // supportFragmentManager.beginTransaction().add(R.id.transactionFragmentContainer, TransactionGraphFragment(), "TransactionGraphFragment").commit()
-
 
         val extras = intent.extras
         if (extras !== null) {
@@ -48,42 +43,17 @@ class TransactionActivity : AppCompatActivity() {
             currency = extras.getString("currency", "")
             recentRate =  extras.getString("recentRate", "")
             symbol =  extras.getString("symbol", "")
+
+            supportFragmentManager.beginTransaction().add(R.id.transactionFragmentContainer, TransactionOptionFragment(currency.toLowerCase(Locale.ROOT)), "TransactionOptionFragment").commit()
+
             viewModel.userPortfolio.observe(this, Observer {userPortfolio ->
                 Log.d("INFO", "Symbol:${userPortfolio.symbol} Volume: ${userPortfolio.volume} ")
             })
+
             viewModel.getPortfolio(symbol)
             binding.currency.text = currency
             binding.recentRate.text = "$${recentRate}"
             Glide.with(this).load(currencySymbol).into(binding.currencySymbol)
-
-
-            // GRAPH
-
-            viewModel.getInterval(currency.toLowerCase(Locale.ROOT))
-            viewModel.ccHistory.observe(this, Observer {history ->
-                Log.d("INFO", "Price usd: ${history.data[0].priceUsd}")
-                ccIntervals.clear()
-                ccIntervals.addAll(history.data);
-
-
-                var series: ArrayList<DataEntry> = ArrayList();
-
-                for (ccInterval in ccIntervals) {
-                    // Could use ccInterval.time on X-axis
-                    series.add(ValueDataEntry(ccInterval.date, ccInterval.priceUsd?.toFloat()))
-                }
-
-
-                val cartesian: Cartesian = AnyChart.line()
-
-                cartesian.yAxis(0).title("USD")
-
-                cartesian.line(series)
-
-                binding.chartView.setChart(cartesian)
-            })
-
-            // STOP GRAPH
         }
     }
 }
