@@ -1,5 +1,6 @@
 package no.kristiania.pgr208_exam.data
 
+import no.kristiania.pgr208_exam.data.domain.CcHistory
 import no.kristiania.pgr208_exam.data.domain.CcOverview
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -19,7 +20,7 @@ interface CoinCapService {
     suspend fun getAssetOverview() : CcOverview
 
 
-    @GET
-    suspend fun getSpecific(url: String) : Call<ResponseBody>
+    @GET("assets/bitcoin/history?interval=h1")
+    suspend fun getInterval() : CcHistory
 
 }

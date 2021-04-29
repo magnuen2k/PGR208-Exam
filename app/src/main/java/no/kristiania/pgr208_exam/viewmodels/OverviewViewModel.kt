@@ -27,7 +27,7 @@ class OverviewViewModel : ViewModel(){
 
     fun getAssetOverview() {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            delay(5000)
+            delay(3000)
             val ccOverviewItems = coinCapService.getAssetOverview()
             _allCcAssets.postValue(ccOverviewItems);
         }
