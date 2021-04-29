@@ -43,6 +43,12 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    fun insertCc(symbol: String, volume: String) {
+        viewModelScope.launch {
+            DataBase.getDatabase(getApplication()).getUserPortfolioDAO().insertCc(symbol, volume)
+        }
+    }
+
     fun getInterval(id: String) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             val ccOverviewItems = coinCapService.getInterval(id)

@@ -64,7 +64,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/confirmBuyBtn"
         android:enabled="false"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"

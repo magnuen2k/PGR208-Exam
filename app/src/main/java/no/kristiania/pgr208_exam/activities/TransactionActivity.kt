@@ -3,6 +3,7 @@ package no.kristiania.pgr208_exam.activities
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.anychart.AnyChart
@@ -55,5 +56,17 @@ class TransactionActivity : AppCompatActivity() {
             binding.recentRate.text = "$${recentRate}"
             Glide.with(this).load(currencySymbol).into(binding.currencySymbol)
         }
+    }
+
+    fun getRecentRate(): String {
+        return recentRate
+    }
+
+    fun getCurrency(): String {
+        return currency
+    }
+
+    fun getCurrencySymbol(): String {
+        return symbol
     }
 }

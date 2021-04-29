@@ -17,4 +17,7 @@ interface UserPortfolioDAO {
      @Query("SELECT * FROM user_portfolio WHERE symbol =:symbol")
      suspend fun fetch(symbol : String) : UserPortfolio
 
+     @Query("REPLACE INTO user_portfolio VALUES(:symbol, :volume)")
+     suspend fun insertCc(symbol : String, volume: String)
+
 }
