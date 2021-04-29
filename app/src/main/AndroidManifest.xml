@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pgr208exam">
-        <activity android:name=".activities.TransactionActivity"></activity>
+        <activity android:name=".activities.HomeActivity"></activity>
+        <activity android:name=".activities.TransactionActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
