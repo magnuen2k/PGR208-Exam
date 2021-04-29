@@ -22,6 +22,7 @@ class TransactionOptionFragment(id: String) : Fragment(R.layout.transaction_opti
     var ccIntervals = mutableListOf<SpecificCcHistory>()
     val currency: String = id
 
+    // getInterval method should be in anther viewmodel
     private val viewModel: OverviewViewModel = OverviewViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
