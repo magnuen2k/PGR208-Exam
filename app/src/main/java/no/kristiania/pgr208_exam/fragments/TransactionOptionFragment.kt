@@ -72,16 +72,18 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
                 series.add(ValueDataEntry(ccInterval.date, ccInterval.priceUsd?.toFloat()))
             }
 
-
             val cartesian: Cartesian = AnyChart.line()
 
             val xAxis = cartesian.xAxis(0)
             val yAxis = cartesian.yAxis(0)
+            val tooltip = cartesian.tooltip();
 
             xAxis.labels().format("{%Value}{dateTimeFormat:MM-dd HH-mm}")
 
-            //yAxis.title("USD")
-            yAxis.labels().format("\${%Value}{scale:(1000)(1000)(1000)|(k)(m)(b)}")
+            yAxis.labels().format("\${%Value}{scale:(1000)(1000)|(k)(m)}")
+
+            tooltip.titleFormat("{%x}{dateTimeFormat:EEEE MMMM dd yyyy HH:mm:ss}")
+            tooltip.format("Price: \${%value}{decimalsCount:6}")
 
             cartesian.line(series)
 
