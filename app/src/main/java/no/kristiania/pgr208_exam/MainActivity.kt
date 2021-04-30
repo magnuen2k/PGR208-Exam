@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -27,11 +28,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.hide()
-
-        Handler().postDelayed({
-            val intent = Intent(this@MainActivity, HomeActivity::class.java)
-            startActivity(intent)
-        }, 2000)
+        Looper.myLooper()?.let {looper ->
+            Handler(looper).postDelayed({
+                val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, 2000)
+        }
     }
 }

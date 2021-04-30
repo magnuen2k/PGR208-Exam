@@ -27,9 +27,11 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         binding = TransactionBuyFragmentBinding.bind(view)
 
         // Better way to pass data to fragment from activity?
-        val recentRate = (context as TransactionActivity).getRecentRate()
-        val currency = (context as TransactionActivity).getCurrency()
-        val symbol = (context as TransactionActivity).getCurrencySymbol()
+
+        val recentRate = arguments?.getString("recentRate")
+        val currency = arguments?.getString("currency")
+        val symbol = arguments?.getString("symbol")
+
 
         val usdBuyAmount = binding.usdBuyAmount.text
 
@@ -46,7 +48,10 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         })
 
         binding.confirmBtn.setOnClickListener {
-           buyCurrency(recentRate, symbol, usdBuyAmount.toString(), userUsd)
+            if (recentRate != null && symbol != null) {
+                Log.d("info","buying currency")
+                buyCurrency(recentRate, symbol, usdBuyAmount.toString(), userUsd)
+            }
         }
     }
 
