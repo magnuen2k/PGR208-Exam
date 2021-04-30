@@ -1,71 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/ccBuyAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ccName"
+        app:layout_constraintStart_toEndOf="@+id/ccName" />
 
-        <TextView
-            android:id="@+id/ccName"
-            style="@style/text_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:text="CCNAME" />
+    <TextView
+        android:id="@+id/ccName"
+        style="@style/text_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="BTC"
+        app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
+        app:layout_constraintStart_toStartOf="@+id/usdDisplayText" />
 
-        <TextView
-            android:id="@+id/ccBuyAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TextView" />
+    <EditText
+        android:id="@+id/usdBuyAmount"
+        style="@style/style_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="Price in USD"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/usdDisplayText"
+        app:layout_constraintStart_toEndOf="@+id/usdDisplayText" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/usdDisplayText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:text="USD"
-            style="@style/text_label"/>
-
-        <EditText
-            android:inputType="number"
-            android:id="@+id/usdBuyAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:hint="Price in USD"
-            style="@style/style_edit_text"/>
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/usdDisplayText"
+        style="@style/text_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="USD"
+        app:layout_constraintBottom_toTopOf="@+id/ccName"
+        app:layout_constraintEnd_toStartOf="@+id/confirmBtn" />
 
     <Button
         android:id="@+id/confirmBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"
         android:enabled="true"
-        android:text="buy" />
-
-</LinearLayout>
+        android:text="buy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

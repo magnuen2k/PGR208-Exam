@@ -46,7 +46,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
 
         val usdBuyAmount = binding.usdBuyAmount.text
 
-        binding.ccName.text = currency
+        binding.ccName.text = symbol
 
         // Update how much bitcoin what you type in USD
 
