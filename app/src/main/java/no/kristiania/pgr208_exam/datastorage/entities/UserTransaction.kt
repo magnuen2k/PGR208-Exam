@@ -12,7 +12,9 @@ data class UserTransaction(
         @ColumnInfo(name = "symbol")
         val symbol: String,
         @ColumnInfo(name = "volume")
-        val volume: String
-
-        // Add time/date
+        val volume: String,
+        @ColumnInfo(name = "usd")
+        val usdBuyAmount: String,
+        @ColumnInfo(name = "type")
+        val type: String
 )
