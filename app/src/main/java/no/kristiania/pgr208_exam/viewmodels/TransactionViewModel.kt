@@ -52,7 +52,7 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         viewModelScope.launch {
             DataBase.getDatabase(getApplication()).getUserPortfolioDAO().insertPortfolio(symbol, volume)
             // Also add to transaction table (should give timestamp as well
-            //DataBase.getDatabase(getApplication()).getUserTransactionsDAO().insert(UserTransaction(symbol, volume))
+            DataBase.getDatabase(getApplication()).getUserTransactionsDAO().insert(UserTransaction(symbol, volume))
         }
     }
 
