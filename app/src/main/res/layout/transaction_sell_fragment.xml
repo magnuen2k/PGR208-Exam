@@ -64,14 +64,13 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button"
-        android:enabled="false"
-        android:layout_gravity="center_horizontal"
+        android:id="@+id/confirmBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="32dp"
-        android:text="sell"
-        />
+        android:enabled="true"
+        android:text="sell" />
 
     <LinearLayout
         android:layout_width="match_parent"
