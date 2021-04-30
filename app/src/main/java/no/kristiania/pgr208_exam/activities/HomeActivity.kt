@@ -40,10 +40,19 @@ class HomeActivity : AppCompatActivity() {
                 )
             }
         } else {
+
+            // Just to see that inserting to database works properly
+            // Should calculate users points
             lifecycleScope.launch(Dispatchers.IO) {
-                DataBase.getDatabase(baseContext).getUserPortfolioDAO().fetchAll().forEach {
-                    binding.points.text = it.volume
+                val portfolios = DataBase.getDatabase(baseContext).getUserPortfolioDAO().fetchAll()
+
+                var points: String = ""
+
+                for(portfolio in portfolios) {
+                    points += portfolio.symbol + portfolio.volume
                 }
+
+                binding.points.text = points
             }
         }
     }
