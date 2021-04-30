@@ -16,10 +16,14 @@ import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
 
 class TransactionViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val coinCapService: CoinCapService = API.COIN_CAP_SERVICE
+
     private val _userPortfolio = MutableLiveData<UserPortfolio>()
     val userPortfolio: LiveData<UserPortfolio> get() = _userPortfolio
 
-    private val coinCapService: CoinCapService = API.COIN_CAP_SERVICE
+    private val _userUsd = MutableLiveData<UserPortfolio>()
+    val userUsd: LiveData<UserPortfolio> get() = _userUsd
+
 
     private val _CcHistory = MutableLiveData<CcHistory>()
     val ccHistory: LiveData<CcHistory> get() = _CcHistory
@@ -43,16 +47,16 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    fun insertCc(symbol: String, volume: String) {
+    fun insertPortfolio(symbol: String, volume: String) {
         viewModelScope.launch {
-            DataBase.getDatabase(getApplication()).getUserPortfolioDAO().insertCc(symbol, volume)
+            DataBase.getDatabase(getApplication()).getUserPortfolioDAO().insertPortfolio(symbol, volume)
         }
     }
 
-    fun getInterval(id: String) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            val ccOverviewItems = coinCapService.getInterval(id)
-            _CcHistory.postValue(ccOverviewItems)
+    fun getUserUsd() {
+        viewModelScope.launch {
+            val userUsd = DataBase.getDatabase(getApplication()).getUserPortfolioDAO().fetchUsd()
+            _userUsd.postValue(userUsd)
         }
     }
 }
