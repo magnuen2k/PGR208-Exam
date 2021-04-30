@@ -12,6 +12,7 @@ import no.kristiania.pgr208_exam.data.CoinCapService
 import no.kristiania.pgr208_exam.data.domain.CcHistory
 import no.kristiania.pgr208_exam.datastorage.db.DataBase
 import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
+import no.kristiania.pgr208_exam.datastorage.entities.UserTransaction
 
 
 class TransactionViewModel(application: Application) : AndroidViewModel(application) {
@@ -50,6 +51,8 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
     fun insertPortfolio(symbol: String, volume: String) {
         viewModelScope.launch {
             DataBase.getDatabase(getApplication()).getUserPortfolioDAO().insertPortfolio(symbol, volume)
+            // Also add to transaction table (should give timestamp as well
+            //DataBase.getDatabase(getApplication()).getUserTransactionsDAO().insert(UserTransaction(symbol, volume))
         }
     }
 

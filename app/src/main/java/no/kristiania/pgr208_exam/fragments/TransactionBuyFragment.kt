@@ -55,10 +55,8 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         })
 
         binding.confirmBtn.setOnClickListener {
-            if (recentRate != null && symbol != null) {
-                Log.d("info","buying currency")
-                buyCurrency(recentRate, symbol, usdBuyAmount.toString(), userUsd)
-            }
+            Log.d("info","buying currency")
+            buyCurrency(recentRate, symbol, usdBuyAmount.toString(), userUsd)
         }
     }
 
@@ -69,22 +67,18 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
         override fun afterTextChanged(s: Editable?) {
-            binding.ccBuyAmount.text = (binding.usdBuyAmount.text.toString().toDouble() / recentRate.toDouble()).toString()
+            // Need to trim decimals
+            if(!binding.usdBuyAmount.text.isNullOrBlank()) {
+                binding.ccBuyAmount.text = (binding.usdBuyAmount.text.toString().toDouble() / formatRecentRate(recentRate)).toString()
+            } else {
+                binding.ccBuyAmount.text = ""
+            }
         }
     }
 
-
     private fun buyCurrency(recentRate: String, symbol: String, usdBuyAmount: String, userUsd: String) {
         // If recent rate contains a "," we need to remove it to be able to cast to double
-        val recentRateDouble = when {
-            recentRate.contains(",") -> {
-                val recentRateArr = recentRate.split(",")
-                (recentRateArr[0] + recentRateArr[1]).toDouble()
-            }
-            else -> {
-                recentRate.toDouble()
-            }
-        }
+        val recentRateDouble = formatRecentRate(recentRate)
 
         when {
             userUsd.toDouble() < usdBuyAmount.toDouble() -> {
@@ -111,6 +105,18 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
                 viewModel.insertPortfolio("USD", (userUsd.toDouble() - usdBuyAmount.toDouble()).toString())
 
                 // TODO Important to redirect here (or check a users balance for each click, if not a user can spam the buy button
+            }
+        }
+    }
+
+    private fun formatRecentRate(recentRate: String): Double {
+        return when {
+            recentRate.contains(",") -> {
+                val recentRateArr = recentRate.split(",")
+                (recentRateArr[0] + recentRateArr[1]).toDouble()
+            }
+            else -> {
+                recentRate.toDouble()
             }
         }
     }

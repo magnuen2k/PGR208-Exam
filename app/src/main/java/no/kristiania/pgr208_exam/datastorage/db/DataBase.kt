@@ -12,6 +12,7 @@ const val DATABASE_NAME: String = "accounting_database"
 @Database(entities = [UserPortfolio::class], version = 1)
 abstract class DataBase : RoomDatabase() {
     abstract fun getUserPortfolioDAO() : UserPortfolioDAO
+    //abstract fun getUserTransactionsDAO() : UserTransactionsDAO
     companion object {
         private var db: DataBase? = null
 
