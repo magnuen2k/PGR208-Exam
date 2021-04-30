@@ -48,6 +48,7 @@
             style="@style/text_label"/>
 
         <EditText
+            android:inputType="number"
             android:id="@+id/usdBuyAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
