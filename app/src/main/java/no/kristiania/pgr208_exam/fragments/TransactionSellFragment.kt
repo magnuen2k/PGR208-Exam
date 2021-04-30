@@ -24,9 +24,9 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
         binding = TransactionSellFragmentBinding.bind(view)
 
         // Better way to pass data to fragment from activity?
-        val recentRate = (context as TransactionActivity).getRecentRate()
-        val currency = (context as TransactionActivity).getCurrency()
-        val symbol = (context as TransactionActivity).getCurrencySymbol()
+        val recentRate = arguments?.getString("recentRate")
+        val currency = arguments?.getString("currency")
+        val symbol = arguments?.getString("symbol")
 
         val ccSellAmount = binding.ccSellAmount.text
 

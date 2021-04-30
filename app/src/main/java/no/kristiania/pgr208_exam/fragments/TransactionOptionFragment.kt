@@ -18,12 +18,15 @@ import no.kristiania.pgr208_exam.viewmodels.OverviewViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TransactionOptionFragment(id: String) : Fragment(R.layout.transaction_option_fragment){
+class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragment){
 
     private lateinit var binding : TransactionOptionFragmentBinding
 
     var ccIntervals = mutableListOf<SpecificCcHistory>()
-    val currency: String = id
+    lateinit var currency: String
+    lateinit var symbol: String
+    lateinit var recentRate: String
+
 
     // getInterval method should be in anther viewmodel
     private val viewModel: OverviewViewModel = OverviewViewModel()
@@ -31,16 +34,22 @@ class TransactionOptionFragment(id: String) : Fragment(R.layout.transaction_opti
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val bundle = arguments
+        bundle?.let {
+            symbol = bundle.getString("symbol")!!
+            currency = bundle.getString("currency")!!.toLowerCase(Locale.ROOT)
+            recentRate = bundle.getString("recentRate")!!
+        }
+
         binding = TransactionOptionFragmentBinding.bind(view)
 
         binding.buyBtn.setOnClickListener {
-            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(R.id.transactionFragmentContainer, TransactionBuyFragment(), "TransactionBuyFragment").commit()
+            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(R.id.transactionFragmentContainer, TransactionBuyFragment().apply {arguments = bundle}, "TransactionBuyFragment").commit()
         }
 
         binding.sellBtn.setOnClickListener {
-            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(R.id.transactionFragmentContainer, TransactionSellFragment(), "TransactionSellFragment").commit()
+            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(R.id.transactionFragmentContainer, TransactionSellFragment().apply {arguments = bundle}, "TransactionSellFragment").commit()
         }
-
         displayGraph()
     }
 

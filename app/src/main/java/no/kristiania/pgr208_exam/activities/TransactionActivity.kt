@@ -3,6 +3,7 @@ package no.kristiania.pgr208_exam.activities
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,10 +22,10 @@ import kotlin.collections.ArrayList
 
 class TransactionActivity : AppCompatActivity() {
 
-    private lateinit var currencySymbol : String
-    private lateinit var currency : String
-    private lateinit var recentRate : String
-    private lateinit var symbol : String
+    private lateinit var currencySymbol: String
+    private lateinit var currency: String
+    private lateinit var recentRate: String
+    private lateinit var symbol: String
 
     private lateinit var viewModel: TransactionViewModel
 
@@ -42,31 +43,19 @@ class TransactionActivity : AppCompatActivity() {
         if (extras !== null) {
             currencySymbol = extras.getString("currencySymbol", "")
             currency = extras.getString("currency", "")
-            recentRate =  extras.getString("recentRate", "")
-            symbol =  extras.getString("symbol", "")
+            recentRate = extras.getString("recentRate", "")
+            symbol = extras.getString("symbol", "")
 
-            supportFragmentManager.beginTransaction().add(R.id.transactionFragmentContainer, TransactionOptionFragment(currency.toLowerCase(Locale.ROOT)), "TransactionOptionFragment").commit()
-
-            viewModel.userPortfolio.observe(this, Observer {userPortfolio ->
-                Log.d("INFO", "Symbol:${userPortfolio.symbol} Volume: ${userPortfolio.volume} ")
-            })
+            supportFragmentManager.beginTransaction().add(
+                R.id.transactionFragmentContainer,
+                TransactionOptionFragment().apply { arguments = extras },
+                "TransactionOptionFragment"
+            ).commit()
 
             viewModel.getPortfolio(symbol)
             binding.currency.text = currency
             binding.recentRate.text = "$${recentRate}"
             Glide.with(this).load(currencySymbol).into(binding.currencySymbol)
         }
-    }
-
-    fun getRecentRate(): String {
-        return recentRate
-    }
-
-    fun getCurrency(): String {
-        return currency
-    }
-
-    fun getCurrencySymbol(): String {
-        return symbol
     }
 }
