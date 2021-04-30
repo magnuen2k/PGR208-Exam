@@ -2,6 +2,7 @@ package no.kristiania.pgr208_exam.fragments
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -19,6 +20,10 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
 
     private lateinit var viewModel: TransactionViewModel
 
+    private lateinit var recentRate: String
+    private lateinit var currency: String
+    private lateinit var symbol: String
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -28,9 +33,9 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
 
         // Better way to pass data to fragment from activity?
 
-        val recentRate = arguments?.getString("recentRate")
-        val currency = arguments?.getString("currency")
-        val symbol = arguments?.getString("symbol")
+        recentRate = arguments?.getString("recentRate").toString()
+        currency = arguments?.getString("currency").toString()
+        symbol = arguments?.getString("symbol").toString()
 
 
         val usdBuyAmount = binding.usdBuyAmount.text
@@ -38,7 +43,9 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         binding.ccName.text = currency
 
         // Update how much bitcoin what you type in USD
+
         //binding.ccBuyAmount.text = (usdBuyAmount.toString().toDouble() / recentRate.toDouble()).toString()
+        binding.usdBuyAmount.addTextChangedListener(textWatcher)
 
         // Need to know if user has enough USD to buy
         var userUsd = "0"
@@ -54,6 +61,18 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
             }
         }
     }
+
+
+    var textWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+        override fun afterTextChanged(s: Editable?) {
+            binding.ccBuyAmount.text = (binding.usdBuyAmount.text.toString().toDouble() / recentRate.toDouble()).toString()
+        }
+    }
+
 
     private fun buyCurrency(recentRate: String, symbol: String, usdBuyAmount: String, userUsd: String) {
         // If recent rate contains a "," we need to remove it to be able to cast to double

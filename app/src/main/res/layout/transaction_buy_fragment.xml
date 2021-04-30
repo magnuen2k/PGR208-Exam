@@ -56,7 +56,6 @@
             android:layout_marginEnd="32dp"
             android:hint="Price in USD"
             style="@style/style_edit_text"/>
-
     </LinearLayout>
 
 
