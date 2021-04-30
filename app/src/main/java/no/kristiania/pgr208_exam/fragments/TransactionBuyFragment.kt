@@ -104,15 +104,14 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
                 })
 
                 // Calculate new volume
-                val volume: String = ((usdBuyAmount.toDouble() / recentRateDouble) + prevVolume.toDouble()).toString()
+                val ccVolume: String = (usdBuyAmount.toDouble() / recentRateDouble).toString()
+                val newVolume: String = (ccVolume.toDouble() + prevVolume.toDouble()).toString()
 
                 val currentTime = LocalDateTime.now()
 
                 // Insert cc and remove usd in DB
-                viewModel.insertPortfolio(symbol, volume, currentTime.toString())
+                viewModel.insertPortfolio(symbol, newVolume, ccVolume, usdBuyAmount, currentTime.toString(), "BUY")
                 viewModel.updateUsd((userUsd.toDouble() - usdBuyAmount.toDouble()).toString())
-
-                // TODO Important to redirect here (or check a users balance for each click, if not a user can spam the buy button
             }
         }
     }

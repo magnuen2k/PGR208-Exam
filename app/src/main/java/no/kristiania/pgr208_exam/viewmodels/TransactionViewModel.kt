@@ -48,10 +48,10 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    fun insertPortfolio(symbol: String, volume: String, time: String) {
+    fun insertPortfolio(symbol: String, newVolume: String, ccVolume: String, usdBuyAmount: String, time: String, type: String) {
         viewModelScope.launch {
-            DataBase.getDatabase(getApplication()).getUserPortfolioDAO().insertPortfolio(symbol, volume)
-            DataBase.getDatabase(getApplication()).getUserTransactionsDAO().insert(UserTransaction(time, symbol, volume))
+            DataBase.getDatabase(getApplication()).getUserPortfolioDAO().insertPortfolio(symbol, newVolume)
+            DataBase.getDatabase(getApplication()).getUserTransactionsDAO().insert(UserTransaction(time, symbol, ccVolume, usdBuyAmount, type))
         }
     }
 
