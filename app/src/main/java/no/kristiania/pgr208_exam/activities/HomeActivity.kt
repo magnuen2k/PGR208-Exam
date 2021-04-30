@@ -24,7 +24,6 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportFragmentManager.beginTransaction().add(R.id.fragment_container, CcOverviewFragment(), "comics_list").commit()
 
-
         sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
 
         val launch: String? = sharedPreferences.getString("launch", null)

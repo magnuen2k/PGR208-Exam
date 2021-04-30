@@ -1,10 +1,12 @@
 package no.kristiania.pgr208_exam.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +15,8 @@ import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.activities.TransactionActivity
 import no.kristiania.pgr208_exam.databinding.TransactionBuyFragmentBinding
 import no.kristiania.pgr208_exam.viewmodels.TransactionViewModel
+import java.time.LocalDateTime
+import java.util.*
 
 class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
 
@@ -24,6 +28,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
     private lateinit var currency: String
     private lateinit var symbol: String
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,7 +60,6 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         })
 
         binding.confirmBtn.setOnClickListener {
-            Log.d("info","buying currency")
             buyCurrency(recentRate, symbol, usdBuyAmount.toString(), userUsd)
         }
     }
@@ -76,6 +80,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun buyCurrency(recentRate: String, symbol: String, usdBuyAmount: String, userUsd: String) {
         // If recent rate contains a "," we need to remove it to be able to cast to double
         val recentRateDouble = formatRecentRate(recentRate)
@@ -99,10 +104,11 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
                 // Calculate new volume
                 val volume: String = ((usdBuyAmount.toDouble() / recentRateDouble) + prevVolume.toDouble()).toString()
 
-                // Maybe have both of these transactions happen in same viewmodel function instead?
+                val currentTime = LocalDateTime.now()
+
                 // Insert cc and remove usd in DB
-                viewModel.insertPortfolio(symbol, volume)
-                viewModel.insertPortfolio("USD", (userUsd.toDouble() - usdBuyAmount.toDouble()).toString())
+                viewModel.insertPortfolio(symbol, volume, currentTime.toString())
+                viewModel.updateUsd((userUsd.toDouble() - usdBuyAmount.toDouble()).toString())
 
                 // TODO Important to redirect here (or check a users balance for each click, if not a user can spam the buy button
             }

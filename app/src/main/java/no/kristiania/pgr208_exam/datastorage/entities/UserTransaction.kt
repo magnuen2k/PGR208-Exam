@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "user_transactions")
 data class UserTransaction(
         @PrimaryKey
+        @ColumnInfo(name = "time")
+        val time: String,
         @ColumnInfo(name = "symbol")
         val symbol: String,
         @ColumnInfo(name = "volume")
