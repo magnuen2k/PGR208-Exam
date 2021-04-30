@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,6 +14,7 @@ import no.kristiania.pgr208_exam.databinding.ActivityMainBinding
 import no.kristiania.pgr208_exam.datastorage.db.DataBase
 import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
 import no.kristiania.pgr208_exam.fragments.CcOverviewFragment
+import no.kristiania.pgr208_exam.fragments.UserPortfolioFragment
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -22,7 +24,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, CcOverviewFragment(), "comics_list").commit()
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container, CcOverviewFragment(), "CcOverviewFragment").commit()
 
         sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
 
@@ -53,6 +55,10 @@ class HomeActivity : AppCompatActivity() {
 
                 binding.points.text = points
             }
+        }
+
+        binding.pointsHeader.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, UserPortfolioFragment(), "CcOverviewFragment").commit()
         }
     }
 }
