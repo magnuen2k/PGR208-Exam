@@ -44,11 +44,11 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
         binding = TransactionOptionFragmentBinding.bind(view)
 
         binding.buyBtn.setOnClickListener {
-            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(R.id.transactionFragmentContainer, TransactionBuyFragment().apply {arguments = bundle}, "TransactionBuyFragment").commit()
+            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(R.id.transactionFragmentContainer, TransactionBuyFragment().apply {arguments = bundle}, "TransactionBuyFragment").addToBackStack("buy").commit()
         }
 
         binding.sellBtn.setOnClickListener {
-            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(R.id.transactionFragmentContainer, TransactionSellFragment().apply {arguments = bundle}, "TransactionSellFragment").commit()
+            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(R.id.transactionFragmentContainer, TransactionSellFragment().apply {arguments = bundle}, "TransactionSellFragment").addToBackStack("sell").commit()
         }
         displayGraph()
     }

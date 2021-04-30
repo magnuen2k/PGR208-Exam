@@ -1,5 +1,6 @@
 package no.kristiania.pgr208_exam.fragments
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -61,6 +62,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
 
         binding.confirmBtn.setOnClickListener {
             buyCurrency(recentRate, symbol, usdBuyAmount.toString(), userUsd)
+            fragmentManager?.popBackStackImmediate()
         }
     }
 
