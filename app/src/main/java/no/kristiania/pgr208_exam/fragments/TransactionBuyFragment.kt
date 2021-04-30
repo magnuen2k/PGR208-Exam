@@ -45,7 +45,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
             userUsd = portfolio.volume
         })
 
-        binding.confirmBuyBtn.setOnClickListener {
+        binding.confirmBtn.setOnClickListener {
            buyCurrency(recentRate, symbol, usdBuyAmount.toString(), userUsd)
         }
     }
@@ -85,6 +85,8 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
                 // Insert cc and remove usd in DB
                 viewModel.insertPortfolio(symbol, volume)
                 viewModel.insertPortfolio("USD", (userUsd.toDouble() - usdBuyAmount.toDouble()).toString())
+
+                // TODO Important to redirect here (or check a users balance for each click, if not a user can spam the buy button
             }
         }
     }
