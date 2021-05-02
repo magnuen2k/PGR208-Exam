@@ -24,14 +24,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/ccVolume"
-            android:layout_width="123dp"
+            android:id="@+id/volAndRate"
+            android:layout_width="wrap_content"
             android:layout_height="21dp"
             android:layout_marginStart="32dp"
-            android:text="currency"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="volume"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/ccIcon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0.2x54518.2" />
+
+        <TextView
+            android:id="@+id/totalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/volAndRate"
+            app:layout_constraintTop_toBottomOf="@+id/volAndRate"
+            tools:text="10903.64 USD" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

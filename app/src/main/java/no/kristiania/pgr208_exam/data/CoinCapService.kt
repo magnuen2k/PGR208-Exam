@@ -2,6 +2,7 @@ package no.kristiania.pgr208_exam.data
 
 import no.kristiania.pgr208_exam.data.domain.CcHistory
 import no.kristiania.pgr208_exam.data.domain.CcOverview
+import no.kristiania.pgr208_exam.data.domain.SpecificCcData
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
@@ -18,6 +19,10 @@ interface CoinCapService {
 
     @GET("assets")
     suspend fun getAssetOverview() : CcOverview
+
+
+    @GET("assets/{id}")
+    suspend fun getCurrency(@Path("id") id: String) : SpecificCcData
 
 
     @GET("assets/{id}/history?interval=h1")
