@@ -18,9 +18,9 @@ import no.kristiania.pgr208_exam.viewmodels.OverviewViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragment){
+class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragment) {
 
-    private lateinit var binding : TransactionOptionFragmentBinding
+    private lateinit var binding: TransactionOptionFragmentBinding
 
     var ccIntervals = mutableListOf<SpecificCcHistory>()
     lateinit var currency: String
@@ -44,11 +44,19 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
         binding = TransactionOptionFragmentBinding.bind(view)
 
         binding.buyBtn.setOnClickListener {
-            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(R.id.transactionFragmentContainer, TransactionBuyFragment().apply {arguments = bundle}, "TransactionBuyFragment").addToBackStack("buy").commit()
+            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(
+                R.id.transactionFragmentContainer,
+                TransactionBuyFragment().apply { arguments = bundle },
+                "TransactionBuyFragment"
+            ).addToBackStack("buy").commit()
         }
 
         binding.sellBtn.setOnClickListener {
-            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(R.id.transactionFragmentContainer, TransactionSellFragment().apply {arguments = bundle}, "TransactionSellFragment").addToBackStack("sell").commit()
+            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(
+                R.id.transactionFragmentContainer,
+                TransactionSellFragment().apply { arguments = bundle },
+                "TransactionSellFragment"
+            ).addToBackStack("sell").commit()
         }
         displayGraph()
     }
@@ -60,8 +68,7 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
 
     fun displayGraph() {
         viewModel.getInterval(currency)
-        viewModel.ccHistory.observe(this, Observer {history ->
-            Log.d("INFO", "Price usd: ${history.data[0].priceUsd}")
+        viewModel.ccHistory.observe(this, Observer { history ->
             ccIntervals.clear()
             ccIntervals.addAll(history.data)
 

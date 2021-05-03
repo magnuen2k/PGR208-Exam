@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_weight="1"
-        android:text="TextView"
+        tools:text="TextView"
         app:layout_constraintBaseline_toBaselineOf="@+id/ccName"
         app:layout_constraintStart_toEndOf="@+id/ccName" />
 
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="BTC"
+        tools:text="BTC"
         app:layout_constraintBottom_toTopOf="@+id/usdDisplayText"
         app:layout_constraintEnd_toStartOf="@+id/confirmBtn" />
 
