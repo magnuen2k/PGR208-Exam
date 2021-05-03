@@ -58,7 +58,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.pointsHeader.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, UserPortfolioFragment(), "CcOverviewFragment").commit()
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, UserPortfolioFragment(), "UserPortfolioFragment").addToBackStack("").commit()
         }
     }
 }

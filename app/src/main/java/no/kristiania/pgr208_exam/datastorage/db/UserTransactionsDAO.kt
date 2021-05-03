@@ -4,6 +4,7 @@ import no.kristiania.pgr208_exam.datastorage.entities.UserTransaction
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.Query
 
 @Dao
 interface UserTransactionsDAO {
@@ -12,5 +13,8 @@ interface UserTransactionsDAO {
     suspend fun insert(portfolio: UserTransaction)
 
     // Add function to get all users transactions
+    @Query("SELECT * FROM user_transactions")
+    suspend fun fetchAll() : List<UserTransaction>
+
 
 }
