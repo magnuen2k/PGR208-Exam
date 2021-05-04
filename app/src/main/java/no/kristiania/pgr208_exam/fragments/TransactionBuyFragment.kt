@@ -1,22 +1,17 @@
 package no.kristiania.pgr208_exam.fragments
 
-import android.content.Intent
-import android.os.Build
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import no.kristiania.pgr208_exam.R
-import no.kristiania.pgr208_exam.activities.TransactionActivity
 import no.kristiania.pgr208_exam.databinding.TransactionBuyFragmentBinding
 import no.kristiania.pgr208_exam.viewmodels.TransactionViewModel
-import java.time.LocalDateTime
 import java.util.*
 
 class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
@@ -29,11 +24,10 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
     private lateinit var currency: String
     private lateinit var symbol: String
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider((context as TransactionActivity)).get(TransactionViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(TransactionViewModel::class.java)
 
         binding = TransactionBuyFragmentBinding.bind(view)
 
@@ -82,7 +76,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private fun buyCurrency(recentRate: String, symbol: String, usdBuyAmount: String, userUsd: String) {
         // If recent rate contains a "," we need to remove it to be able to cast to double
         val recentRateDouble = formatRecentRate(recentRate)
@@ -107,7 +101,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
                 val ccVolume: String = (usdBuyAmount.toDouble() / recentRateDouble).toString()
                 val newVolume: String = (ccVolume.toDouble() + prevVolume.toDouble()).toString()
 
-                val currentTime = LocalDateTime.now()
+                val currentTime = Calendar.getInstance().time
 
                 // Insert cc and remove usd in DB
                 viewModel.insertPortfolio(symbol, newVolume, ccVolume, usdBuyAmount, currentTime.toString(), "BUY")

@@ -12,7 +12,7 @@
         android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:hint="sell amount"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintBaseline_toBaselineOf="@+id/ccName"
         app:layout_constraintStart_toEndOf="@+id/ccName" />
 

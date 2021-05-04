@@ -7,8 +7,8 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import no.kristiania.pgr208_exam.R
-import no.kristiania.pgr208_exam.activities.TransactionActivity
 import no.kristiania.pgr208_exam.databinding.TransactionSellFragmentBinding
 import no.kristiania.pgr208_exam.viewmodels.TransactionViewModel
 import java.util.*
@@ -26,7 +26,7 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider((context as TransactionActivity)).get(TransactionViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(TransactionViewModel::class.java)
 
         binding = TransactionSellFragmentBinding.bind(view)
 
@@ -43,8 +43,17 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
 
         binding.ccSellAmount.addTextChangedListener(textWatcher)
 
+        var currencyVolume = "0"
+        viewModel.getPortfolio(symbol)
+        viewModel.userPortfolio.value?.let {
+            currencyVolume = it.volume
+            Log.d("INFO", "Observe says portfolio volume for ${it.symbol} is ${it.volume}")
+        }
+        viewModel.getUserUsd()
+
         binding.confirmBtn.setOnClickListener {
-            Log.d("INFO", "Implement sell logic..")
+            sellCurrency(recentRate, symbol, ccSellAmount.toString(), currencyVolume)
+            //fragmentManager?.popBackStackImmediate()
         }
     }
 
@@ -58,9 +67,7 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
         override fun afterTextChanged(s: Editable?) {
             // Need to trim decimals
             if(!binding.ccSellAmount.text.isNullOrBlank()) {
-                //val rate = recentRate.replace("\\s".toRegex(), "")
-                //Log.d("INFO", "Recent rate: ${rate}")
-                binding.usdAmount.text = (binding.ccSellAmount.text.toString().toDouble() / formatRecentRate(recentRate)).toString()
+                binding.usdAmount.text = (binding.ccSellAmount.text.toString().toDouble() * formatRecentRate(recentRate)).toString()
             } else {
                 binding.usdAmount.text = ""
             }
@@ -76,6 +83,14 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
             else -> {
                 recentRate.toDouble()
             }
+        }
+    }
+
+    private fun sellCurrency(recentRate: String, symbol: String, currencyVolumeToSell: String, currencyVolumeOwned: String) {
+        if (currencyVolumeOwned.toDouble() < currencyVolumeToSell.toDouble()) {
+            Snackbar.make(binding.root, "You have ${currencyVolumeOwned} and wanted to sell ${currencyVolumeToSell}", Snackbar.LENGTH_SHORT).show()
+        } else {
+            val newVolume = (currencyVolumeOwned.toDouble() - currencyVolumeToSell.toDouble()).toString()
         }
     }
 
