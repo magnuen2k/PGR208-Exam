@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.google.android.material.snackbar.Snackbar
 import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.databinding.TransactionSellFragmentBinding
@@ -49,10 +50,15 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
             currencyVolume = it.volume
             Log.d("INFO", "Observe says portfolio volume for ${it.symbol} is ${it.volume}")
         }
+        var userUsdBalance = ""
+        viewModel.userUsd.observe(this, androidx.lifecycle.Observer { portfolio ->
+            userUsdBalance = portfolio.volume
+        })
+
         viewModel.getUserUsd()
 
         binding.confirmBtn.setOnClickListener {
-            sellCurrency(recentRate, symbol, ccSellAmount.toString(), currencyVolume)
+            sellCurrency(recentRate, symbol, ccSellAmount.toString(), currencyVolume, userUsdBalance)
             //fragmentManager?.popBackStackImmediate()
         }
     }
@@ -86,11 +92,17 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
         }
     }
 
-    private fun sellCurrency(recentRate: String, symbol: String, currencyVolumeToSell: String, currencyVolumeOwned: String) {
+    private fun sellCurrency(recentRate: String, symbol: String, currencyVolumeToSell: String, currencyVolumeOwned: String, userUsdBalance: String) {
         if (currencyVolumeOwned.toDouble() < currencyVolumeToSell.toDouble()) {
             Snackbar.make(binding.root, "You have ${currencyVolumeOwned} and wanted to sell ${currencyVolumeToSell}", Snackbar.LENGTH_SHORT).show()
         } else {
             val newVolume = (currencyVolumeOwned.toDouble() - currencyVolumeToSell.toDouble()).toString()
+            val volumeSold = currencyVolumeToSell
+            val volumeSoldFor = (currencyVolumeToSell.toDouble() * recentRate.toDouble()).toString()
+            val currentTime = Calendar.getInstance().time
+            val newUsdBalance = (userUsdBalance.toDouble() + volumeSoldFor.toDouble()).toString()
+            viewModel.insertPortfolio(symbol, newVolume, volumeSold, volumeSoldFor, currentTime.toString(), "Sell")
+            viewModel.updateUsd(newUsdBalance)
         }
     }
 

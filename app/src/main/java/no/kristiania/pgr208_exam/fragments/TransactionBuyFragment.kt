@@ -98,7 +98,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
                 })
 
                 // Calculate new volume
-                val ccVolume: String = (usdBuyAmount.toDouble() / recentRateDouble).toString()
+                val ccVolume: String = (usdBuyAmount.toDouble() / recentRate.toDouble()).toString()
                 val newVolume: String = (ccVolume.toDouble() + prevVolume.toDouble()).toString()
 
                 val currentTime = Calendar.getInstance().time

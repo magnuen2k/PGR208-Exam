@@ -63,6 +63,7 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
 
     override fun onResume() {
         super.onResume()
+        Log.d("INFO", "[TransactionOptionFragment.kt] onResume ran")
         viewModel.getInterval(currency)
     }
 

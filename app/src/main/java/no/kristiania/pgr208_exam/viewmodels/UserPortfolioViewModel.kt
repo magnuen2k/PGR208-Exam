@@ -33,11 +33,17 @@ class UserPortfolioViewModel(application: Application) : AndroidViewModel(applic
     fun getPortfolioStatements() {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             val userPortfolios = database.getUserPortfolioDAO().fetchAll()
+
             val ccOverviewItems = coinCapService.getAssetOverview()
+
             val statements = mutableListOf<PortfolioStatement>()
+
             userPortfolios.forEach { portfolio ->
+
                 val specificCcData = ccOverviewItems.data.find {ccO -> ccO.symbol.equals(portfolio.symbol)}
+
                 if (specificCcData !== null) {
+
                     statements.add(
                         PortfolioStatement(
                             portfolio.symbol,

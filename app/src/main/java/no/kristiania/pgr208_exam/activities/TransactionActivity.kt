@@ -68,4 +68,6 @@ class TransactionActivity : AppCompatActivity() {
         format.minimumIntegerDigits = 1
         return format.format(priceUsd)
     }
+
+
 }
