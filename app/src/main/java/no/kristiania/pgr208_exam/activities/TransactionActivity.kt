@@ -17,6 +17,7 @@ import no.kristiania.pgr208_exam.data.domain.SpecificCcHistory
 import no.kristiania.pgr208_exam.databinding.ActivityTransactionBinding
 import no.kristiania.pgr208_exam.fragments.TransactionOptionFragment
 import no.kristiania.pgr208_exam.viewmodels.TransactionViewModel
+import java.text.DecimalFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -54,8 +55,17 @@ class TransactionActivity : AppCompatActivity() {
 
             viewModel.getPortfolio(symbol)
             binding.currency.text = currency
-            binding.recentRate.text = "$${recentRate}"
+            binding.recentRate.text = "$${formatDecimal(recentRate)}"
             Glide.with(this).load(currencySymbol).into(binding.currencySymbol)
         }
+    }
+
+    //Todo move formatDecimal in a way that is less duplicated code
+    private fun formatDecimal(decimal: String?): String {
+        val priceUsd = decimal?.toBigDecimal()
+        val format = DecimalFormat("#,###.00")
+        format.isParseBigDecimal = true
+        format.minimumIntegerDigits = 1
+        return format.format(priceUsd)
     }
 }

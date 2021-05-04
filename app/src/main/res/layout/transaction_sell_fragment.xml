@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <EditText
         android:id="@+id/ccSellAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_weight="1"
-        tools:text="TextView"
+        android:hint="sell amount"
+        android:inputType="number"
         app:layout_constraintBaseline_toBaselineOf="@+id/ccName"
         app:layout_constraintStart_toEndOf="@+id/ccName" />
 
@@ -25,14 +26,12 @@
         app:layout_constraintBottom_toTopOf="@+id/usdDisplayText"
         app:layout_constraintEnd_toStartOf="@+id/confirmBtn" />
 
-    <EditText
+    <TextView
         android:id="@+id/usdAmount"
         style="@style/style_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:hint="Price in USD"
-        android:inputType="number"
         app:layout_constraintBaseline_toBaselineOf="@+id/usdDisplayText"
         app:layout_constraintStart_toEndOf="@+id/usdDisplayText" />
 

@@ -75,7 +75,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         override fun afterTextChanged(s: Editable?) {
             // Need to trim decimals
             if(!binding.usdBuyAmount.text.isNullOrBlank()) {
-                binding.ccBuyAmount.text = (binding.usdBuyAmount.text.toString().toDouble() / formatRecentRate(recentRate.replace("\\s".toRegex(), ""))).toString()
+                binding.ccBuyAmount.text = (binding.usdBuyAmount.text.toString().toDouble() / formatRecentRate(recentRate)).toString()
             } else {
                 binding.ccBuyAmount.text = ""
             }

@@ -41,7 +41,7 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
 
 
 
-        binding.usdAmount.addTextChangedListener(textWatcher)
+        binding.ccSellAmount.addTextChangedListener(textWatcher)
 
         binding.confirmBtn.setOnClickListener {
             Log.d("INFO", "Implement sell logic..")
@@ -57,12 +57,12 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
         }
         override fun afterTextChanged(s: Editable?) {
             // Need to trim decimals
-            if(!binding.usdAmount.text.isNullOrBlank()) {
+            if(!binding.ccSellAmount.text.isNullOrBlank()) {
                 //val rate = recentRate.replace("\\s".toRegex(), "")
                 //Log.d("INFO", "Recent rate: ${rate}")
-                binding.ccSellAmount.text = (binding.usdAmount.text.toString().toDouble() / formatRecentRate(recentRate.replace("\\s".toRegex(), ""))).toString()
+                binding.usdAmount.text = (binding.ccSellAmount.text.toString().toDouble() / formatRecentRate(recentRate)).toString()
             } else {
-                binding.ccSellAmount.text = ""
+                binding.usdAmount.text = ""
             }
         }
     }
