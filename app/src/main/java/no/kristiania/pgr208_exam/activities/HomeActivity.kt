@@ -16,9 +16,11 @@ import no.kristiania.pgr208_exam.databinding.ActivityHomeBinding
 import no.kristiania.pgr208_exam.databinding.ActivityMainBinding
 import no.kristiania.pgr208_exam.datastorage.db.DataBase
 import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
+import no.kristiania.pgr208_exam.datastorage.entities.UserTransaction
 import no.kristiania.pgr208_exam.fragments.CcOverviewFragment
 import no.kristiania.pgr208_exam.fragments.UserPortfolioFragment
 import no.kristiania.pgr208_exam.viewmodels.OverviewViewModel
+import java.util.*
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -49,6 +51,9 @@ class HomeActivity : AppCompatActivity() {
                         "10000"
                     )
                 )
+                val time = Calendar.getInstance().time.toString()
+                DataBase.getDatabase(baseContext).getUserTransactionsDAO()
+                    .insert(UserTransaction(time,"USD","10000", "", "Installation Reward"))
             }
         }
 
@@ -59,7 +64,7 @@ class HomeActivity : AppCompatActivity() {
                 val portfolios = DataBase.getDatabase(baseContext).getUserPortfolioDAO().fetchAll()
                 var points: Double = 0.0
 
-                val usdPortfolio = portfolios.find { pO -> pO.symbol.equals("USD")}
+                val usdPortfolio = portfolios.find { pO -> pO.symbol.equals("USD") }
                 usdPortfolio?.let { pO ->
                     points += pO.volume.toDouble()
                 }

@@ -27,8 +27,12 @@ class UserPortfolioAdapter(private val list: List<PortfolioStatement>) : Recycle
             val imageUrl = "https://static.coincap.io/assets/icons/${statement.symbol.toLowerCase(
                 Locale.ROOT)}@2x.png"
             Glide.with(binding.root.context).load(imageUrl).into(binding.ccIcon)
-            binding.volAndRate.text = "${statement.volume} x ${statement.recentRate}"
-            binding.totalValue.text = "${statement.totalValue} USD"
+            if (statement.recentRate.isNullOrBlank() || statement.totalValue.isNullOrBlank()) {
+                binding.volAndRate.text = "${statement.volume} USD"
+            } else {
+                binding.volAndRate.text = "${statement.volume} x ${statement.recentRate}"
+                binding.totalValue.text = "${statement.totalValue} USD"
+            }
         }
     }
 }

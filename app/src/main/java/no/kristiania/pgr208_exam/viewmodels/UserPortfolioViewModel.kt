@@ -38,6 +38,12 @@ class UserPortfolioViewModel(application: Application) : AndroidViewModel(applic
 
             val statements = mutableListOf<PortfolioStatement>()
 
+            val usdPortfolio= userPortfolios.find { portfolio -> portfolio.symbol.equals("USD") }
+
+            usdPortfolio?.let { portfolio ->
+                statements.add(PortfolioStatement(portfolio.symbol, portfolio.volume, "", ""))
+            }
+
             userPortfolios.forEach { portfolio ->
 
                 val specificCcData = ccOverviewItems.data.find {ccO -> ccO.symbol.equals(portfolio.symbol)}
@@ -57,7 +63,4 @@ class UserPortfolioViewModel(application: Application) : AndroidViewModel(applic
             _portfolioStatements.postValue(statements)
         }
     }
-
-
-
 }

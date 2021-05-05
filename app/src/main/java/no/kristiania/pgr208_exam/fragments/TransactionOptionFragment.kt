@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.anychart.AnyChart
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
@@ -15,12 +16,14 @@ import no.kristiania.pgr208_exam.activities.TransactionActivity
 import no.kristiania.pgr208_exam.data.domain.SpecificCcHistory
 import no.kristiania.pgr208_exam.databinding.TransactionOptionFragmentBinding
 import no.kristiania.pgr208_exam.viewmodels.OverviewViewModel
+import no.kristiania.pgr208_exam.viewmodels.TransactionOptionViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
 class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragment) {
 
     private lateinit var binding: TransactionOptionFragmentBinding
+    private lateinit var viewModel: TransactionOptionViewModel
 
     var ccIntervals = mutableListOf<SpecificCcHistory>()
     lateinit var currency: String
@@ -29,10 +32,13 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
 
 
     // getInterval method should be in anther viewmodel
-    private val viewModel: OverviewViewModel = OverviewViewModel()
-
+    //private val viewModel: OverviewViewModel = OverviewViewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding = TransactionOptionFragmentBinding.bind(view)
+
+        viewModel = ViewModelProvider(requireActivity()).get(TransactionOptionViewModel::class.java)
 
         val bundle = arguments
         bundle?.let {
@@ -41,7 +47,18 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
             recentRate = bundle.getString("recentRate")!!
         }
 
-        binding = TransactionOptionFragmentBinding.bind(view)
+        viewModel.getPortfolio(symbol)
+
+        viewModel.userPortfolio.observe(this, Observer {
+
+            binding.ccUserAmount.text = "You have ${it.volume} ${it.symbol}"
+            binding.toUsdCalculation.text = "${it.volume} x ${recentRate}"
+            binding.ccValueInUsd.text = "Value ${it.volume.toDouble() * recentRate.toDouble()} USD"
+        })
+
+
+        viewModel.getPortfolio(symbol)
+
 
         binding.buyBtn.setOnClickListener {
             (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(

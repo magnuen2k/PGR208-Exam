@@ -27,7 +27,15 @@ class TransactionsAdapter(private val userTransactions: List<UserTransaction>) :
             Glide.with(binding.root.context).load(imageUrl).into(binding.transactionSymbol)
             binding.timeOfTransaction.text = transaction.time
             binding.transactionType.text = transaction.type
-            binding.volumeForBuyValue.text = "${transaction.volume} ${transaction.symbol} for ${transaction.usdBuyAmount} USD"
+            if (transaction.usdBuyAmount.isNullOrBlank()) {
+                val volume = "${transaction.volume} ${transaction.symbol}"
+                binding.volumeForBuyValue.text = volume
+            } else {
+                val volumeForBuyValue = "${transaction.volume} ${transaction.symbol} for ${transaction.usdBuyAmount} USD"
+                binding.volumeForBuyValue.text = volumeForBuyValue
+            }
+
+
         }
     }
 }

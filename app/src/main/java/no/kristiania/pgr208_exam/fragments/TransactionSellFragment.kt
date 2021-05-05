@@ -59,7 +59,7 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
 
         binding.confirmBtn.setOnClickListener {
             sellCurrency(recentRate, symbol, ccSellAmount.toString(), currencyVolume, userUsdBalance)
-            //fragmentManager?.popBackStackImmediate()
+            fragmentManager?.popBackStackImmediate()
         }
     }
 
