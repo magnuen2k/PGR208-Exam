@@ -12,22 +12,22 @@ import java.text.DecimalFormat
 import java.util.*
 
 
-class CcOverviewAdapter(private val list: MutableList<SpecificCcData>, val onClick: (SpecificCcData) -> Unit) : RecyclerView.Adapter<CcOverviewAdapter.ImageViewHolder>() {
+class CcOverviewAdapter(private val list: MutableList<SpecificCcData>, val onClick: (SpecificCcData) -> Unit) : RecyclerView.Adapter<CcOverviewAdapter.CcOverviewItemHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CcOverviewItemHolder {
 
         val holder = CcOverviewItemBinding.inflate(LayoutInflater.from(parent.context))
-        return ImageViewHolder(holder, onClick)
+        return CcOverviewItemHolder(holder, onClick)
     }
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CcOverviewItemHolder, position: Int) {
 
         holder.bind(list[position])
     }
 
     override fun getItemCount(): Int = list.size
 
-    class ImageViewHolder(private val binding: CcOverviewItemBinding, val onClick: (SpecificCcData) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    class CcOverviewItemHolder(private val binding: CcOverviewItemBinding, val onClick: (SpecificCcData) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(ccOverview: SpecificCcData) {
 
