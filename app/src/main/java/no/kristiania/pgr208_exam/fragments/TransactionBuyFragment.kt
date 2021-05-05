@@ -4,6 +4,7 @@ package no.kristiania.pgr208_exam.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -42,6 +43,8 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
 
         binding.ccName.text = symbol
 
+        binding.textViewInfoMessage.text = "You can only buy cryptocurrency with USD"
+
         // Update how much bitcoin what you type in USD
 
         //binding.ccBuyAmount.text = (usdBuyAmount.toString().toDouble() / recentRate.toDouble()).toString()
@@ -49,15 +52,29 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
 
         // Need to know if user has enough USD to buy
         var userUsd = "0"
-        viewModel.getUserUsd()
+        var prevVolume = ""
         viewModel.userUsd.observe(this, Observer {portfolio ->
             userUsd = portfolio.volume
+            Log.d("INFO", "Cash money flow = ${userUsd}")
+            binding.textViewVolumeOwned.text = "You have ${portfolio.volume} USD"
         })
 
+        viewModel.userPortfolio.observe(this, Observer {portfolio ->
+            prevVolume = portfolio.volume
+            Log.d("INFO", "[TransactionBuyFragment.kt] ${prevVolume}")
+        })
+
+        viewModel.getPortfolio(symbol)
+
+
+        viewModel.getUserUsd()
+
         binding.confirmBtn.setOnClickListener {
-            buyCurrency(recentRate, symbol, usdBuyAmount.toString(), userUsd)
+            Log.d("INFO", "confirm buy = ${userUsd}")
+            buyCurrency(recentRate, symbol, usdBuyAmount.toString(), userUsd, prevVolume)
             fragmentManager?.popBackStackImmediate()
         }
+        Log.d("INFO", "[TransactionBuyFragment.kt] onViewCreated")
     }
 
 
@@ -77,7 +94,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
     }
 
 
-    private fun buyCurrency(recentRate: String, symbol: String, usdBuyAmount: String, userUsd: String) {
+    private fun buyCurrency(recentRate: String, symbol: String, usdBuyAmount: String, userUsd: String, prevVolume : String) {
         // If recent rate contains a "," we need to remove it to be able to cast to double
         val recentRateDouble = formatRecentRate(recentRate)
 
@@ -91,11 +108,6 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
             }
             else -> {
                 // Get old volume and add it to new
-                var prevVolume = ""
-                viewModel.getPortfolio(symbol)
-                viewModel.userPortfolio.observe(this, Observer {portfolio ->
-                    prevVolume = portfolio.volume
-                })
 
                 // Calculate new volume
                 val ccVolume: String = (usdBuyAmount.toDouble() / recentRate.toDouble()).toString()
@@ -104,7 +116,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
                 val currentTime = Calendar.getInstance().time
 
                 // Insert cc and remove usd in DB
-                viewModel.insertPortfolio(symbol, newVolume, ccVolume, usdBuyAmount, currentTime.toString(), "BUY")
+                viewModel.insertPortfolio(symbol, newVolume, ccVolume, usdBuyAmount, currentTime.toString(), "BOUGHT")
                 viewModel.updateUsd((userUsd.toDouble() - usdBuyAmount.toDouble()).toString())
             }
         }

@@ -56,5 +56,4 @@ class UserPortfolioFragment : Fragment(R.layout.user_portfolio_fragment) {
         super.onResume()
         userPortfolioViewModel.getPortfolioStatements()
     }
-
 }

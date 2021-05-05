@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import no.kristiania.pgr208_exam.data.API
 import no.kristiania.pgr208_exam.data.CoinCapService
 import no.kristiania.pgr208_exam.data.domain.CcHistory
+import no.kristiania.pgr208_exam.data.domain.SpecificCcData
 import no.kristiania.pgr208_exam.datastorage.db.DataBase
 import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
 
@@ -25,6 +26,9 @@ class TransactionOptionViewModel(application: Application) : AndroidViewModel(ap
     private val _CcHistory = MutableLiveData<CcHistory>()
     val ccHistory: LiveData<CcHistory> get() = _CcHistory
 
+    private val _currency = MutableLiveData<SpecificCcData>()
+    val currency: LiveData<SpecificCcData> get() = _currency
+
     private val _error = MutableLiveData<Unit>()
     val error: LiveData<Unit> get() = _error
 
@@ -35,7 +39,8 @@ class TransactionOptionViewModel(application: Application) : AndroidViewModel(ap
 
     fun getPortfolio(symbol: String) {
         viewModelScope.launch {
-            val portfolio = DataBase.getDatabase(getApplication()).getUserPortfolioDAO().fetch(symbol)
+            val portfolio =
+                DataBase.getDatabase(getApplication()).getUserPortfolioDAO().fetch(symbol)
             if (portfolio !== null) {
                 _userPortfolio.postValue(portfolio)
             } else {
@@ -50,4 +55,13 @@ class TransactionOptionViewModel(application: Application) : AndroidViewModel(ap
             _CcHistory.postValue(ccOverviewItems)
         }
     }
+
+    fun getCurrency(id: String) {
+        Log.d("INFO", "getCurrency with argument: ${id}")
+        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+            val currency = coinCapService.getCurrency(id).data
+            _currency.postValue(currency)
+        }
+    }
+
 }
