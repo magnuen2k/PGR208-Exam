@@ -55,7 +55,7 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         var prevVolume = ""
         viewModel.userUsd.observe(this, Observer {portfolio ->
             userUsd = portfolio.volume
-            Log.d("INFO", "Cash money flow = ${userUsd}")
+            Log.d("INFO", "[Buy] Cash money flow = ${userUsd}")
             binding.textViewVolumeOwned.text = "You have ${portfolio.volume} USD"
         })
 

@@ -48,16 +48,17 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
 
         var currencyVolume = "0"
 
-        viewModel.userPortfolio.value?.let {
+        viewModel.userPortfolio.observe(this, androidx.lifecycle.Observer {
             currencyVolume = it.volume
             Log.d("INFO", "Observe says portfolio volume for ${it.symbol} is ${it.volume}")
             binding.textViewVolumeOwned.text = "You have ${it.volume} ${it.symbol}"
-        }
+        })
 
         viewModel.getPortfolio(symbol)
         var userUsdBalance = ""
         viewModel.userUsd.observe(this, androidx.lifecycle.Observer { portfolio ->
             userUsdBalance = portfolio.volume
+            Log.d("INFO", "[Sell] Cash money flow = ${portfolio.volume}")
         })
 
         viewModel.getUserUsd()
