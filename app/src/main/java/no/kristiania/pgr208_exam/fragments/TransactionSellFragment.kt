@@ -40,19 +40,25 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
 
         binding.ccName.text = symbol
 
+        binding.textViewInfoMessage.text = "You can only convert cryptocurrency to USD"
+
 
 
         binding.ccSellAmount.addTextChangedListener(textWatcher)
 
         var currencyVolume = "0"
-        viewModel.getPortfolio(symbol)
-        viewModel.userPortfolio.value?.let {
+
+        viewModel.userPortfolio.observe(this, androidx.lifecycle.Observer {
             currencyVolume = it.volume
             Log.d("INFO", "Observe says portfolio volume for ${it.symbol} is ${it.volume}")
-        }
+            binding.textViewVolumeOwned.text = "You have ${it.volume} ${it.symbol}"
+        })
+
+        viewModel.getPortfolio(symbol)
         var userUsdBalance = ""
         viewModel.userUsd.observe(this, androidx.lifecycle.Observer { portfolio ->
             userUsdBalance = portfolio.volume
+            Log.d("INFO", "[Sell] Cash money flow = ${portfolio.volume}")
         })
 
         viewModel.getUserUsd()
@@ -61,6 +67,7 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
             sellCurrency(recentRate, symbol, ccSellAmount.toString(), currencyVolume, userUsdBalance)
             fragmentManager?.popBackStackImmediate()
         }
+        Log.d("INFO", "[TransactionSellFragment.kt] onViewCreated")
     }
 
     var textWatcher = object : TextWatcher {
@@ -101,7 +108,7 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
             val volumeSoldFor = (currencyVolumeToSell.toDouble() * recentRate.toDouble()).toString()
             val currentTime = Calendar.getInstance().time
             val newUsdBalance = (userUsdBalance.toDouble() + volumeSoldFor.toDouble()).toString()
-            viewModel.insertPortfolio(symbol, newVolume, volumeSold, volumeSoldFor, currentTime.toString(), "Sell")
+            viewModel.insertPortfolio(symbol, newVolume, volumeSold, volumeSoldFor, currentTime.toString(), "Sold")
             viewModel.updateUsd(newUsdBalance)
         }
     }

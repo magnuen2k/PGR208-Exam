@@ -23,4 +23,12 @@ data class SpecificCcData (
     val explorer: String?
 )
 
+@JsonClass(generateAdapter = true)
+data class CurrencyData (
+    val data: SpecificCcData
+)
+
+
+
+
 

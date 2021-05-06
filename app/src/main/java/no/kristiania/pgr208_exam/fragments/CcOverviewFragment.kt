@@ -68,11 +68,10 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
     }
 
     private fun openTransactionActivity(ccOverview: SpecificCcData) {
-        Log.d("INFO", "Decimal:${formatDecimal(ccOverview.priceUsd)}")
         Intent(requireContext(), TransactionActivity::class.java).apply {
-            putExtra("currency", ccOverview.id?.capitalize())
             val imageUrl = "https://static.coincap.io/assets/icons/" + ccOverview.symbol?.toLowerCase(
                 Locale.ROOT) + "@2x.png"
+            putExtra("currency", ccOverview.id?.capitalize())
             putExtra("currencySymbol", imageUrl)
             putExtra("recentRate", ccOverview.priceUsd)
             putExtra("symbol", ccOverview.symbol)

@@ -39,25 +39,30 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
         binding = TransactionOptionFragmentBinding.bind(view)
 
         viewModel = ViewModelProvider(requireActivity()).get(TransactionOptionViewModel::class.java)
+        Log.d("INFO", "[TransactionOptionFragment.kt] onViewCreated ran")
 
         val bundle = arguments
         bundle?.let {
             symbol = bundle.getString("symbol")!!
             currency = bundle.getString("currency")!!.toLowerCase(Locale.ROOT)
             recentRate = bundle.getString("recentRate")!!
+            viewModel.getCurrency(currency)
         }
 
-        viewModel.getPortfolio(symbol)
+        viewModel.currency.observe(this, Observer { data ->
+            symbol = data.symbol ?: symbol
+            currency = data.id ?: currency
+            recentRate = data.priceUsd ?: recentRate
+            viewModel.getPortfolio(symbol)
+            displayGraph()
+        })
 
         viewModel.userPortfolio.observe(this, Observer {
-
             binding.ccUserAmount.text = "You have ${it.volume} ${it.symbol}"
             binding.toUsdCalculation.text = "${it.volume} x ${recentRate}"
             binding.ccValueInUsd.text = "Value ${it.volume.toDouble() * recentRate.toDouble()} USD"
         })
 
-
-        viewModel.getPortfolio(symbol)
 
 
         binding.buyBtn.setOnClickListener {
@@ -75,13 +80,13 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
                 "TransactionSellFragment"
             ).addToBackStack("sell").commit()
         }
-        displayGraph()
+        viewModel.getCurrency(currency)
     }
 
     override fun onResume() {
         super.onResume()
         Log.d("INFO", "[TransactionOptionFragment.kt] onResume ran")
-        viewModel.getInterval(currency)
+        viewModel.getCurrency(currency)
     }
 
     fun displayGraph() {
