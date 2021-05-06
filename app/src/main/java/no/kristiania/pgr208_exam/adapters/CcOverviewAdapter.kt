@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.databinding.CcOverviewItemBinding
 import no.kristiania.pgr208_exam.data.domain.SpecificCcData
+import no.kristiania.pgr208_exam.utils.formatDecimal
 import java.text.DecimalFormat
 import java.util.*
 
@@ -33,7 +34,7 @@ class CcOverviewAdapter(private val list: MutableList<SpecificCcData>, val onCli
 
             binding.ccId.text = ccOverview.id?.capitalize()
             binding.symbol.text = ccOverview.symbol
-            binding.currencyUsd.text = "$${formatDecimal(ccOverview.priceUsd)}"
+            binding.currencyUsd.text = "$${ccOverview.priceUsd.formatDecimal()}"
             binding.changePercent.text = "${formatPercent(ccOverview.changePercent24Hr, binding.changePercent)}%"
             val imageUrl = "https://static.coincap.io/assets/icons/" + ccOverview.symbol?.toLowerCase(
                 Locale.ROOT) + "@2x.png"
@@ -54,16 +55,7 @@ class CcOverviewAdapter(private val list: MutableList<SpecificCcData>, val onCli
                         }
                 textView.setTextColor(getColor(textView.context, color))
             }
-            return formatDecimal(decimal)
-        }
-
-
-        private fun formatDecimal(decimal: String?): String {
-            val priceUsd = decimal?.toBigDecimal()
-            val format = DecimalFormat("#,###.00")
-            format.isParseBigDecimal = true
-            format.minimumIntegerDigits = 1
-            return format.format(priceUsd)
+            return decimal.formatDecimal()
         }
     }
 

@@ -19,6 +19,7 @@ import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
 import no.kristiania.pgr208_exam.datastorage.entities.UserTransaction
 import no.kristiania.pgr208_exam.fragments.CcOverviewFragment
 import no.kristiania.pgr208_exam.fragments.UserPortfolioFragment
+import no.kristiania.pgr208_exam.utils.formatDecimal
 import no.kristiania.pgr208_exam.viewmodels.OverviewViewModel
 import java.util.*
 
@@ -83,7 +84,7 @@ class HomeActivity : AppCompatActivity() {
         })
 
         points.observe(this, Observer { newPoints ->
-            binding.points.text = newPoints
+            binding.points.text = newPoints.formatDecimal()
         })
 
         binding.pointsHeader.setOnClickListener {

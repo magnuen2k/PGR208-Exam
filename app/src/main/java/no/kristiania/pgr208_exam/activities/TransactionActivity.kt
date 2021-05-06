@@ -1,25 +1,16 @@
 package no.kristiania.pgr208_exam.activities
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.anychart.AnyChart
-import com.anychart.chart.common.dataentry.DataEntry
-import com.anychart.chart.common.dataentry.ValueDataEntry
-import com.anychart.charts.Cartesian
 import com.bumptech.glide.Glide
 import no.kristiania.pgr208_exam.R
-import no.kristiania.pgr208_exam.data.domain.SpecificCcHistory
 import no.kristiania.pgr208_exam.databinding.ActivityTransactionBinding
 import no.kristiania.pgr208_exam.fragments.TransactionOptionFragment
+import no.kristiania.pgr208_exam.utils.formatDecimal
 import no.kristiania.pgr208_exam.viewmodels.TransactionViewModel
 import java.text.DecimalFormat
-import java.util.*
-import kotlin.collections.ArrayList
+
 
 class TransactionActivity : AppCompatActivity() {
 
@@ -55,19 +46,8 @@ class TransactionActivity : AppCompatActivity() {
 
             viewModel.getPortfolio(symbol)
             binding.currency.text = "${currency}(${symbol})"
-            binding.recentRate.text = "$${formatDecimal(recentRate)}"
+            binding.recentRate.text = "$${recentRate.formatDecimal()}"
             Glide.with(this).load(currencySymbol).into(binding.currencySymbol)
         }
     }
-
-    //Todo move formatDecimal in a way that is less duplicated code
-    private fun formatDecimal(decimal: String?): String {
-        val priceUsd = decimal?.toBigDecimal()
-        val format = DecimalFormat("#,###.00")
-        format.isParseBigDecimal = true
-        format.minimumIntegerDigits = 1
-        return format.format(priceUsd)
-    }
-
-
 }

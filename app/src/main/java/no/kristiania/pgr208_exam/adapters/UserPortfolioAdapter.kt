@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import no.kristiania.pgr208_exam.PortfolioStatement
 import no.kristiania.pgr208_exam.databinding.UserPortfolioStatementBinding
 import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
+import no.kristiania.pgr208_exam.utils.formatDecimal
 import java.util.*
 
 class UserPortfolioAdapter(private val list: List<PortfolioStatement>) : RecyclerView.Adapter<UserPortfolioAdapter.StatementViewHolder>() {
@@ -28,10 +29,10 @@ class UserPortfolioAdapter(private val list: List<PortfolioStatement>) : Recycle
                 Locale.ROOT)}@2x.png"
             Glide.with(binding.root.context).load(imageUrl).into(binding.ccIcon)
             if (statement.recentRate.isNullOrBlank() || statement.totalValue.isNullOrBlank()) {
-                binding.volAndRate.text = "${statement.volume} USD"
+                binding.volAndRate.text = "${statement.volume.formatDecimal()} USD"
             } else {
-                binding.volAndRate.text = "${statement.volume} x ${statement.recentRate}"
-                binding.totalValue.text = "${statement.totalValue} USD"
+                binding.volAndRate.text = "${statement.volume.formatDecimal("#,###.00000000")} x ${statement.recentRate.formatDecimal()}"
+                binding.totalValue.text = "${statement.totalValue.formatDecimal()} USD"
             }
         }
     }

@@ -55,7 +55,7 @@ class UserPortfolioViewModel(application: Application) : AndroidViewModel(applic
                             portfolio.symbol,
                             portfolio.volume,
                             specificCcData.priceUsd.toString(),
-                            "${portfolio.volume.toDouble() * (specificCcData.priceUsd!!.toDouble())}"
+                            "${portfolio.volume.toDouble() * specificCcData.priceUsd!!.toDouble()}"
                         )
                     )
                 }

@@ -108,7 +108,7 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
             val volumeSoldFor = (currencyVolumeToSell.toDouble() * recentRate.toDouble()).toString()
             val currentTime = Calendar.getInstance().time
             val newUsdBalance = (userUsdBalance.toDouble() + volumeSoldFor.toDouble()).toString()
-            viewModel.insertPortfolio(symbol, newVolume, volumeSold, volumeSoldFor, currentTime.toString(), "Sold")
+            viewModel.insertPortfolio(symbol, newVolume, volumeSold, volumeSoldFor, currentTime.toString(), "SOLD")
             viewModel.updateUsd(newUsdBalance)
         }
     }

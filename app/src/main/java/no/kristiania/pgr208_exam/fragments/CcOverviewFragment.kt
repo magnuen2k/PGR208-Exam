@@ -78,12 +78,4 @@ class CcOverviewFragment : Fragment(R.layout.cc_fragment_list) {
             startActivity(this)
         }
     }
-
-    private fun formatDecimal(decimal: String?): String {
-        val priceUsd = decimal?.toBigDecimal()
-        val format = DecimalFormat("#,###.00")
-        format.isParseBigDecimal = true
-        format.minimumIntegerDigits = 1
-        return format.format(priceUsd)
-    }
 }
