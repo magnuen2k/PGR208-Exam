@@ -80,7 +80,7 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
                 "TransactionSellFragment"
             ).addToBackStack("sell").commit()
         }
-        viewModel.getCurrency(currency)
+        //viewModel.getCurrency(currency)
     }
 
     override fun onResume() {
