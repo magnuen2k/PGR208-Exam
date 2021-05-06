@@ -22,8 +22,6 @@ fun String?.formatDecimal(pattern : String?): String {
         var format = DecimalFormat("#,###.00")
         if (pattern !== null) {
             format = DecimalFormat(pattern)
-            Log.d("INFO", "Pattern sent: $pattern")
-            Log.d("INFO", "Formats pattern: " + format.toPattern())
         }
         val priceUsd = this.toBigDecimal()
         format.isParseBigDecimal = true

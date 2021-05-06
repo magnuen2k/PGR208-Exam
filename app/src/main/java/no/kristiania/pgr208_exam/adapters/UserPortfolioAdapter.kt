@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import no.kristiania.pgr208_exam.PortfolioStatement
+import no.kristiania.pgr208_exam.datastorage.entities.PortfolioStatement
 import no.kristiania.pgr208_exam.databinding.UserPortfolioStatementBinding
-import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
 import no.kristiania.pgr208_exam.utils.formatDecimal
 import java.util.*
 

@@ -1,4 +1,4 @@
-package no.kristiania.pgr208_exam
+package no.kristiania.pgr208_exam.datastorage.entities
 
 data class PortfolioStatement(
     val symbol: String,

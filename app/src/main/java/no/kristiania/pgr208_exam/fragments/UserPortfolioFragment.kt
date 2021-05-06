@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import no.kristiania.pgr208_exam.PortfolioStatement
+import no.kristiania.pgr208_exam.datastorage.entities.PortfolioStatement
 import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.activities.TransactionsActivity
 import no.kristiania.pgr208_exam.adapters.UserPortfolioAdapter

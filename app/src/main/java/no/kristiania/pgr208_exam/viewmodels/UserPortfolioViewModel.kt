@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import no.kristiania.pgr208_exam.PortfolioStatement
+import no.kristiania.pgr208_exam.datastorage.entities.PortfolioStatement
 import no.kristiania.pgr208_exam.data.API
 import no.kristiania.pgr208_exam.data.CoinCapService
 import no.kristiania.pgr208_exam.datastorage.db.DataBase
