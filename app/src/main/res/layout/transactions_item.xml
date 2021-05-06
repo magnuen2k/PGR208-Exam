@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?colorOnPrimary"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:textColor="?colorPrimary"
             app:layout_constraintStart_toEndOf="@+id/transactionSymbol"
             app:layout_constraintTop_toTopOf="@+id/transactionSymbol"
             tools:text="sold" />
@@ -33,6 +36,7 @@
             android:id="@+id/volumeForBuyValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="?colorPrimary"
             app:layout_constraintStart_toStartOf="@+id/transactionType"
             app:layout_constraintTop_toBottomOf="@+id/transactionType"
             tools:text="0.001 BTC for 54.00 USD" />
@@ -41,6 +45,7 @@
             android:id="@+id/timeOfTransaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="?colorPrimary"
             app:layout_constraintStart_toStartOf="@+id/volumeForBuyValue"
             app:layout_constraintTop_toBottomOf="@+id/volumeForBuyValue"
             tools:text="03.05.2021 16:41" />

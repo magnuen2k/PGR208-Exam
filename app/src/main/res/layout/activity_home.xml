@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="?colorOnPrimary"
+    >
 
     <TextView
         android:id="@+id/points_header"
         android:layout_width="match_parent"
         android:layout_height="66dp"
-        android:background="@color/white"
         android:gravity="bottom"
         android:padding="16dp"
-        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,14 +26,15 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/points_header">
-
     </FrameLayout>
+
 
     <TextView
         android:id="@+id/points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Points"
+        tools:text="Points"
+        android:textColor="?colorPrimary"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/points_header"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?colorOnPrimary"
+    >
 
     <TextView
         android:id="@+id/ccBuyAmount"
@@ -12,6 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:text="0.0"
+        android:textColor="?colorPrimary"
         app:layout_constraintBaseline_toBaselineOf="@+id/ccName"
         app:layout_constraintStart_toEndOf="@+id/ccName" />
 
@@ -22,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="BTC"
+        android:textColor="?colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
         app:layout_constraintStart_toStartOf="@+id/usdDisplayText" />
 
@@ -32,6 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:hint="Price in USD"
+        android:textColorHint="?colorPrimary"
+        android:textColor="?colorPrimary"
         android:inputType="numberDecimal"
         app:layout_constraintBaseline_toBaselineOf="@+id/usdDisplayText"
         app:layout_constraintStart_toEndOf="@+id/usdDisplayText" />
@@ -43,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="USD"
+        android:textColor="?colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/ccName"
         app:layout_constraintEnd_toStartOf="@+id/confirmBtn" />
 
@@ -66,7 +73,6 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/rounded_border"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +82,7 @@
             android:id="@+id/text_view_infoMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
+            android:textColor="?colorPrimary"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
@@ -92,6 +98,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="?colorPrimary"
             app:layout_constraintEnd_toEndOf="@+id/text_view_infoMessage"
             app:layout_constraintStart_toStartOf="@+id/text_view_infoMessage"
             app:layout_constraintTop_toBottomOf="@+id/text_view_infoMessage"

@@ -12,12 +12,15 @@
         android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:hint="sell amount"
+        android:textColor="?colorPrimary"
+        android:textColorHint="?colorPrimary"
         android:inputType="numberDecimal"
         app:layout_constraintBaseline_toBaselineOf="@+id/ccName"
         app:layout_constraintStart_toEndOf="@+id/ccName" />
 
     <TextView
         android:id="@+id/ccName"
+        android:textColor="?colorPrimary"
         style="@style/text_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,6 +31,7 @@
 
     <TextView
         android:id="@+id/usdAmount"
+        android:textColor="?colorPrimary"
         style="@style/style_edit_text"
         android:text="0.0"
         android:layout_width="wrap_content"
@@ -39,6 +43,7 @@
     <TextView
         android:id="@+id/usdDisplayText"
         style="@style/text_label"
+        android:textColor="?colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -67,7 +72,6 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/rounded_border"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +81,7 @@
             android:id="@+id/text_view_infoMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
+            android:textColor="?colorPrimary"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
@@ -92,6 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:textColor="?colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/text_view_infoMessage"
             app:layout_constraintStart_toStartOf="@+id/text_view_infoMessage"

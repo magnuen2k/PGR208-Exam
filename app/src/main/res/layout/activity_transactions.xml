@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.TransactionsActivity">
+    tools:context=".activities.TransactionsActivity"
+    android:background="?colorOnPrimary"
+    >
 
     <TextView
         android:id="@+id/textView3"
@@ -12,6 +14,7 @@
         android:layout_height="66dp"
         android:padding="16dp"
         android:text="Transactions"
+        android:textColor="?colorPrimary"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"

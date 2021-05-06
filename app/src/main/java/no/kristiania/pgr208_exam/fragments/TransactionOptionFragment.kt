@@ -120,5 +120,4 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
             binding.chartView.setChart(cartesian)
         })
     }
-
 }
