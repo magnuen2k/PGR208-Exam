@@ -46,7 +46,6 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
             symbol = bundle.getString("symbol")!!
             currency = bundle.getString("currency")!!.toLowerCase(Locale.ROOT)
             recentRate = bundle.getString("recentRate")!!
-            //viewModel.getCurrency(currency)
         }
 
         viewModel.currency.observe(this, Observer { data ->
@@ -62,6 +61,10 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
             binding.toUsdCalculation.text = "${portfolio.volume} x ${recentRate}"
             binding.ccValueInUsd.text = "Value ${portfolio.volume.toDouble() * recentRate.toDouble()} USD"
             binding.sellBtn.isEnabled = portfolio.volume.toDouble() > 0
+        })
+
+        viewModel.userUsd.observe(this, Observer { usdPortfolio ->
+            binding.buyBtn.isEnabled = usdPortfolio.volume.toDouble() > 0
         })
 
         binding.buyBtn.setOnClickListener {
@@ -85,6 +88,7 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
     override fun onResume() {
         super.onResume()
         Log.d("INFO", "[TransactionOptionFragment.kt] onResume ran")
+        viewModel.getUserUsd()
         viewModel.getCurrency(currency)
     }
 

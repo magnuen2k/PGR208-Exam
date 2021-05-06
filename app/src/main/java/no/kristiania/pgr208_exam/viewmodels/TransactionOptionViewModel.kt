@@ -29,6 +29,9 @@ class TransactionOptionViewModel(application: Application) : AndroidViewModel(ap
     private val _currency = MutableLiveData<SpecificCcData>()
     val currency: LiveData<SpecificCcData> get() = _currency
 
+    private val _userUsd = MutableLiveData<UserPortfolio>()
+    val userUsd: LiveData<UserPortfolio> get() = _userUsd
+
     private val _error = MutableLiveData<Unit>()
     val error: LiveData<Unit> get() = _error
 
@@ -61,6 +64,13 @@ class TransactionOptionViewModel(application: Application) : AndroidViewModel(ap
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             val currency = coinCapService.getCurrency(id).data
             _currency.postValue(currency)
+        }
+    }
+
+    fun getUserUsd() {
+        viewModelScope.launch {
+            val userUsd = DataBase.getDatabase(getApplication()).getUserPortfolioDAO().fetchUsd()
+            _userUsd.postValue(userUsd)
         }
     }
 
