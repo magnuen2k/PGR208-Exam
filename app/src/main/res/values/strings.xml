@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">pgr208-exam</string>
+    <string name="points_label">Points</string>
 </resources>
