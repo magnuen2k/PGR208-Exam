@@ -9,8 +9,6 @@ import no.kristiania.pgr208_exam.data.API
 import no.kristiania.pgr208_exam.data.CoinCapService
 import no.kristiania.pgr208_exam.data.domain.CcOverview
 import kotlinx.coroutines.*
-import no.kristiania.pgr208_exam.data.domain.CcHistory
-import no.kristiania.pgr208_exam.datastorage.db.DataBase
 
 class OverviewViewModel : ViewModel(){
 
@@ -31,7 +29,7 @@ class OverviewViewModel : ViewModel(){
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             // Delay?
             val ccOverviewItems = coinCapService.getAssetOverview()
-            _allCcAssets.postValue(ccOverviewItems);
+            _allCcAssets.postValue(ccOverviewItems)
         }
     }
 }

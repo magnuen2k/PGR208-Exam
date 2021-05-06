@@ -3,11 +3,9 @@ package no.kristiania.pgr208_exam.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import com.google.android.material.snackbar.Snackbar
 import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.databinding.TransactionSellFragmentBinding

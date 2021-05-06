@@ -9,7 +9,6 @@ import no.kristiania.pgr208_exam.databinding.ActivityTransactionBinding
 import no.kristiania.pgr208_exam.fragments.TransactionOptionFragment
 import no.kristiania.pgr208_exam.utils.formatDecimal
 import no.kristiania.pgr208_exam.viewmodels.TransactionViewModel
-import java.text.DecimalFormat
 
 
 class TransactionActivity : AppCompatActivity() {

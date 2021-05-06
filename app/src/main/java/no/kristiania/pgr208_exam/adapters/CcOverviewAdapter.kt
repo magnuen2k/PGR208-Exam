@@ -9,7 +9,6 @@ import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.databinding.CcOverviewItemBinding
 import no.kristiania.pgr208_exam.data.domain.SpecificCcData
 import no.kristiania.pgr208_exam.utils.formatDecimal
-import java.text.DecimalFormat
 import java.util.*
 
 

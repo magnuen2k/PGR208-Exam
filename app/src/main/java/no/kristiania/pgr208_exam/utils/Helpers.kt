@@ -1,6 +1,4 @@
 package no.kristiania.pgr208_exam.utils
-
-import android.util.Log
 import java.text.DecimalFormat
 
 fun String?.formatDecimal(): String {

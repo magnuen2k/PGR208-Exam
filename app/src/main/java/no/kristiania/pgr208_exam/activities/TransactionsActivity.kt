@@ -2,12 +2,10 @@ package no.kristiania.pgr208_exam.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.adapters.TransactionsAdapter
 import no.kristiania.pgr208_exam.databinding.ActivityTransactionsBinding
 import no.kristiania.pgr208_exam.datastorage.db.DataBase

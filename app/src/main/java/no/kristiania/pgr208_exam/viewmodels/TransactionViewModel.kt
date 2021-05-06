@@ -4,12 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import no.kristiania.pgr208_exam.data.API
-import no.kristiania.pgr208_exam.data.CoinCapService
-import no.kristiania.pgr208_exam.data.domain.CcHistory
 import no.kristiania.pgr208_exam.datastorage.db.DataBase
 import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
 import no.kristiania.pgr208_exam.datastorage.entities.UserTransaction
