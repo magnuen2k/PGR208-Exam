@@ -46,7 +46,7 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
             symbol = bundle.getString("symbol")!!
             currency = bundle.getString("currency")!!.toLowerCase(Locale.ROOT)
             recentRate = bundle.getString("recentRate")!!
-            viewModel.getCurrency(currency)
+            //viewModel.getCurrency(currency)
         }
 
         viewModel.currency.observe(this, Observer { data ->
@@ -57,13 +57,12 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
             displayGraph()
         })
 
-        viewModel.userPortfolio.observe(this, Observer {
-            binding.ccUserAmount.text = "You have ${it.volume} ${it.symbol}"
-            binding.toUsdCalculation.text = "${it.volume} x ${recentRate}"
-            binding.ccValueInUsd.text = "Value ${it.volume.toDouble() * recentRate.toDouble()} USD"
+        viewModel.userPortfolio.observe(this, Observer { portfolio ->
+            binding.ccUserAmount.text = "You have ${portfolio.volume} ${portfolio.symbol}"
+            binding.toUsdCalculation.text = "${portfolio.volume} x ${recentRate}"
+            binding.ccValueInUsd.text = "Value ${portfolio.volume.toDouble() * recentRate.toDouble()} USD"
+            binding.sellBtn.isEnabled = portfolio.volume.toDouble() > 0
         })
-
-
 
         binding.buyBtn.setOnClickListener {
             (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(
