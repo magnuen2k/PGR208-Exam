@@ -14,6 +14,7 @@
         android:layout_height="66dp"
         android:gravity="bottom"
         android:padding="16dp"
+        android:textColor="?colorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
