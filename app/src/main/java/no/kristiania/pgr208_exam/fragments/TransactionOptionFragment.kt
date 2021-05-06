@@ -111,7 +111,7 @@ class TransactionOptionFragment() : Fragment(R.layout.transaction_option_fragmen
             val yAxis = cartesian.yAxis(0)
             val tooltip = cartesian.tooltip();
 
-            xAxis.labels().format("{%Value}{dateTimeFormat:MM-dd HH-mm}")
+            xAxis.labels().format("{%Value}{dateTimeFormat:MM-dd}")
 
             yAxis.labels().format("\${%Value}{scale:(1000)(1000)|(k)(m)}")
 
