@@ -17,17 +17,11 @@ import no.kristiania.pgr208_exam.datastorage.entities.UserTransaction
 
 class TransactionViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val coinCapService: CoinCapService = API.COIN_CAP_SERVICE
-
     private val _userPortfolio = MutableLiveData<UserPortfolio>()
     val userPortfolio: LiveData<UserPortfolio> get() = _userPortfolio
 
     private val _userUsd = MutableLiveData<UserPortfolio>()
     val userUsd: LiveData<UserPortfolio> get() = _userUsd
-
-
-    private val _CcHistory = MutableLiveData<CcHistory>()
-    val ccHistory: LiveData<CcHistory> get() = _CcHistory
 
     private val _error = MutableLiveData<Unit>()
     val error: LiveData<Unit> get() = _error

@@ -12,7 +12,6 @@ interface UserTransactionsDAO {
     @Insert
     suspend fun insert(portfolio: UserTransaction)
 
-    // Add function to get all users transactions
     @Query("SELECT * FROM user_transactions")
     suspend fun fetchAll() : List<UserTransaction>
 

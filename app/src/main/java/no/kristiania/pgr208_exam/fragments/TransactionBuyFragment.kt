@@ -32,8 +32,6 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
 
         binding = TransactionBuyFragmentBinding.bind(view)
 
-        // Better way to pass data to fragment from activity?
-
         recentRate = arguments?.getString("recentRate").toString()
         currency = arguments?.getString("currency").toString()
         symbol = arguments?.getString("symbol").toString()
@@ -45,23 +43,17 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
 
         binding.textViewInfoMessage.text = "You can only buy cryptocurrency with USD"
 
-        // Update how much bitcoin what you type in USD
-
-        //binding.ccBuyAmount.text = (usdBuyAmount.toString().toDouble() / recentRate.toDouble()).toString()
         binding.usdBuyAmount.addTextChangedListener(textWatcher)
 
-        // Need to know if user has enough USD to buy
         var userUsd = "0"
         var prevVolume = ""
         viewModel.userUsd.observe(this, Observer {portfolio ->
             userUsd = portfolio.volume
-            Log.d("INFO", "[Buy] Cash money flow = ${userUsd}")
             binding.textViewVolumeOwned.text = "You have ${portfolio.volume} USD"
         })
 
         viewModel.userPortfolio.observe(this, Observer {portfolio ->
             prevVolume = portfolio.volume
-            Log.d("INFO", "[TransactionBuyFragment.kt] ${prevVolume}")
         })
 
         viewModel.getPortfolio(symbol)
@@ -70,11 +62,9 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
         viewModel.getUserUsd()
 
         binding.confirmBtn.setOnClickListener {
-            Log.d("INFO", "confirm buy = ${userUsd}")
             buyCurrency(recentRate, symbol, usdBuyAmount.toString(), userUsd, prevVolume)
             fragmentManager?.popBackStackImmediate()
         }
-        Log.d("INFO", "[TransactionBuyFragment.kt] onViewCreated")
     }
 
 
@@ -95,9 +85,6 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
 
 
     private fun buyCurrency(recentRate: String, symbol: String, usdBuyAmount: String, userUsd: String, prevVolume : String) {
-        // If recent rate contains a "," we need to remove it to be able to cast to double
-        val recentRateDouble = formatRecentRate(recentRate)
-
         when {
             userUsd.toDouble() < usdBuyAmount.toDouble() -> {
                 Snackbar.make(
@@ -107,7 +94,6 @@ class TransactionBuyFragment : Fragment(R.layout.transaction_buy_fragment){
                 ).show()
             }
             else -> {
-                // Get old volume and add it to new
 
                 // Calculate new volume
                 val ccVolume: String = (usdBuyAmount.toDouble() / recentRate.toDouble()).toString()

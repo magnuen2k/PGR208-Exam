@@ -31,7 +31,7 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
 
         binding = TransactionSellFragmentBinding.bind(view)
 
-        // Better way to pass data to fragment from activity?
+
         recentRate = arguments?.getString("recentRate").toString()
         currency = arguments?.getString("currency").toString()
         symbol = arguments?.getString("symbol").toString()
@@ -50,7 +50,6 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
 
         viewModel.userPortfolio.observe(this, androidx.lifecycle.Observer {
             currencyVolume = it.volume
-            Log.d("INFO", "Observe says portfolio volume for ${it.symbol} is ${it.volume}")
             binding.textViewVolumeOwned.text = "You have ${it.volume} ${it.symbol}"
         })
 
@@ -58,7 +57,6 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
         var userUsdBalance = ""
         viewModel.userUsd.observe(this, androidx.lifecycle.Observer { portfolio ->
             userUsdBalance = portfolio.volume
-            Log.d("INFO", "[Sell] Cash money flow = ${portfolio.volume}")
         })
 
         viewModel.getUserUsd()
@@ -67,18 +65,14 @@ class TransactionSellFragment : Fragment(R.layout.transaction_sell_fragment){
             sellCurrency(recentRate, symbol, ccSellAmount.toString(), currencyVolume, userUsdBalance)
             fragmentManager?.popBackStackImmediate()
         }
-        Log.d("INFO", "[TransactionSellFragment.kt] onViewCreated")
     }
 
     var textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            val currentTime = Calendar.getInstance().time
-            Log.d("INFO", "CurrentTime is: $currentTime")
         }
         override fun afterTextChanged(s: Editable?) {
-            // Need to trim decimals
             if(!binding.ccSellAmount.text.isNullOrBlank()) {
                 binding.usdAmount.text = (binding.ccSellAmount.text.toString().toDouble() * formatRecentRate(recentRate)).toString()
             } else {

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -13,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import no.kristiania.pgr208_exam.R
 import no.kristiania.pgr208_exam.databinding.ActivityHomeBinding
-import no.kristiania.pgr208_exam.databinding.ActivityMainBinding
 import no.kristiania.pgr208_exam.datastorage.db.DataBase
 import no.kristiania.pgr208_exam.datastorage.entities.UserPortfolio
 import no.kristiania.pgr208_exam.datastorage.entities.UserTransaction
@@ -58,8 +56,8 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // Just to see that inserting to database works properly
-        // Should calculate users points
+
+        //calculate users points
         viewModel.allCcAssets.observe(this, Observer { currencies ->
             lifecycleScope.launch(Dispatchers.IO) {
                 val portfolios = DataBase.getDatabase(baseContext).getUserPortfolioDAO().fetchAll()
@@ -96,7 +94,6 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("INFO", "[HomeActivity.kt] onResume ran")
         viewModel.getAssetOverview()
 
     }

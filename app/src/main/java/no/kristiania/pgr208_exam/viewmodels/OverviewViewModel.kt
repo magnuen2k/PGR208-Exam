@@ -19,9 +19,6 @@ class OverviewViewModel : ViewModel(){
     private val _allCcAssets = MutableLiveData<CcOverview>()
     val allCcAssets: LiveData<CcOverview> get() = _allCcAssets
 
-    private val _CcHistory = MutableLiveData<CcHistory>()
-    val ccHistory: LiveData<CcHistory> get() = _CcHistory
-
     private val _error = MutableLiveData<Unit>()
     val error: LiveData<Unit> get() = _error
 
@@ -35,13 +32,6 @@ class OverviewViewModel : ViewModel(){
             // Delay?
             val ccOverviewItems = coinCapService.getAssetOverview()
             _allCcAssets.postValue(ccOverviewItems);
-        }
-    }
-
-    fun getInterval(id: String) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            val ccOverviewItems = coinCapService.getInterval(id)
-            _CcHistory.postValue(ccOverviewItems)
         }
     }
 }
