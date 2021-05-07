@@ -38,9 +38,8 @@ class TransactionOptionFragment : Fragment(R.layout.transaction_option_fragment)
 
         mountObservers()
 
-
         binding.buyBtn.setOnClickListener {
-            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(
+            requireActivity().supportFragmentManager.beginTransaction().replace(
                 R.id.transactionFragmentContainer,
                 TransactionBuyFragment().apply { arguments = Bundle().apply {
                     putString("currency", currency)
@@ -52,7 +51,7 @@ class TransactionOptionFragment : Fragment(R.layout.transaction_option_fragment)
         }
 
         binding.sellBtn.setOnClickListener {
-            (context as TransactionActivity).supportFragmentManager.beginTransaction().replace(
+            requireActivity().supportFragmentManager.beginTransaction().replace(
                 R.id.transactionFragmentContainer,
                 TransactionSellFragment().apply { arguments = Bundle().apply {
                     putString("currency", currency)

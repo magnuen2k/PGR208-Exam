@@ -86,10 +86,12 @@ class HomeActivity : AppCompatActivity() {
         })
 
         binding.pointsHeader.setOnClickListener {
+            if (supportFragmentManager.fragments.none { fragment -> fragment.tag.equals("UserPortfolioFragment")  })
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, UserPortfolioFragment(), "UserPortfolioFragment")
                 .addToBackStack("").commit()
         }
+        supportFragmentManager.addOnBackStackChangedListener {  viewModel.getAssetOverview() }
     }
 
     override fun onResume() {
